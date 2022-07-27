@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistroAwsExamenDTO } from 'src/app/Models/ExamenDTO';
 import { DominioService } from 'src/app/shared/Services/Dominio/dominio.service';
@@ -37,8 +37,8 @@ export class ModoEstudioComponent implements OnInit {
   }
   public Dominio:any;
   public IdExamen=0;
-  public userForm :FormGroup=new FormGroup({
-    NombreSimulacion: new FormControl('',Validators.required),
+  public userForm :UntypedFormGroup=new UntypedFormGroup({
+    NombreSimulacion: new UntypedFormControl('',Validators.required),
   })
   public DominioSeleccionado=0;
   ngOnInit(): void {

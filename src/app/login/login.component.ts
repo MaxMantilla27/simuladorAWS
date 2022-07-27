@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatoObservableDTO } from '../Models/DatoObservableDTO';
 import { loginDTO, UserCredentialsDTO } from '../Models/login';
@@ -37,10 +37,10 @@ export class LoginComponent implements OnInit {
     username:'',
     password:''
   }
-  public userForm :FormGroup=new FormGroup({
-    Email: new FormControl(this.CamposLogin.email,Validators.required),
-    Password: new FormControl(this.CamposLogin.password,Validators.required),
-    Recordar: new FormControl(this.CamposLogin.recordar,Validators.required),
+  public userForm :UntypedFormGroup=new UntypedFormGroup({
+    Email: new UntypedFormControl(this.CamposLogin.email,Validators.required),
+    Password: new UntypedFormControl(this.CamposLogin.password,Validators.required),
+    Recordar: new UntypedFormControl(this.CamposLogin.recordar,Validators.required),
   })
 
   ngOnInit(): void {
