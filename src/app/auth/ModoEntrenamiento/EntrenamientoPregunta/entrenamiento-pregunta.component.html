@@ -1,0 +1,129 @@
+<div class="row" style="background: white">
+  <div class="container" style="width: 63%;">
+    <div style="padding:0.75rem 1.25rem">
+      <div class="container">
+        <div class="rowpaddAv breadcrumb" style="padding-top: 0px !important; padding-bottom: 0px !important;">
+          <app-miga-pan [items]="migaPan"></app-miga-pan>
+        </div>
+      </div>
+      <div style="display:flex">
+        <img src="../../../assets/iconos/ModoEntrenamientoSelect.svg" style="height: 35px; margin-right: 10px;" />
+        <div class="titulo">Modo Entrenamiento</div>
+       </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="DatosExamen!=undefined">
+  <div class="container" style="width: 63%;">
+    <div style="padding:0.75rem 1.25rem;">
+      <div id="datos" style="display: block">
+        <div class="row">
+          <div class="col-8 col-sm-9 ">
+              <div class="card" style="border-radius: 20px; background: white;">
+                  <div class="card-body">
+                      <div class="card-text btn-block" style="display: flex;">
+                        <b style="color: #9e9e9d">Nombre de la simulación: </b>
+                        <div style=" color: #4a4a4a; font-weight: 400; margin-left: 10px;">
+                          {{DatosExamen.nombreExamen}}
+                        </div>
+                      </div>
+                      <div class="card-text btn-block" style="display: flex;">
+                        <b style="color: #9e9e9d">Dominio: </b>
+                        <div style=" color: #4a4a4a; font-weight: 400;margin-left: 10px;">
+                          {{NombreDominio}}
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-4 col-sm-3 ">
+              <div class="card" style="border-radius: 20px; background: #0aaff1;border:solid 0px">
+                  <div class="card-body" style="text-align: center; padding: 10px 0px;">
+                      <b style="color: white; font-size: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa fa-play" style="font-size: 5px;margin-right: 5px;"></i> TIEMPO UTILIZADO</b>
+                      <div style=" color: white; font-size: 90px; font-weight: 600; margin: -10px 0px;" id="TiempoMinuto">00</div>
+                      <b style="color: #fff000;">MINUTOS</b>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+
+    <br />
+            <div class="card" style="border-radius:20px;">
+                <div class="card-body" style=" padding: 1.5rem 3rem 1rem 3rem;">
+
+                    <div id="idMensajeAlerta" class="alert alert-danger" role="alert" style="display:none;">
+                        <b>¡Seleccione una respuesta!</b> Usted tiene que seleccionar una alternativa.
+                        <a id="IdAlertMensaje" class="close IdAlertMensaje">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <span class="btn-block card-text" style="border-bottom: 1px solid #00000021; color:#223257">
+                        <img src="../../../../assets/iconos/question.svg" style="height:20px;" /> <span style="color: #878787; font-weight: 600; font-size: 20px;">Pregunta {{ContadorPreguntaActual}} de {{CantidadTotalPreguntas}} <span id="tituloRetroalimentacion"></span></span>
+                    </span>
+                    <div class="" id="Pregunta">
+                        <br />
+                        <h3 id="Enunciado" style=" color: #4a4a49; font-weight: 700; text-align: justify;">Cargando enunciado ...</h3>
+                        <img src="" class="img-fluid" alt="Responsive image" id="UrlImagenPregunta">
+                        <br />
+                        <div id="Alternativas">
+                            <div>
+                                <p id="seleccionTipoPregunta" style="border-bottom: 1px solid #00000021; color: #4a4a49; font-weight: 700; padding-bottom: 10px; margin-bottom: 10px;">Selecciona la alternativa correcta</p>
+                                <div id="radio-respuestas">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                          <div  style="justify-content: left;display:flex">
+                            <app-default-button  [confs]="{color:'primary',titulo:'Responder y salir'}"
+                          [style]="'width:220px;margin-top: 20px;background:#FF7424'" (ButtoclClick)="RegresarMenu()"></app-default-button>
+                          <app-default-button  [confs]="{color:'primary',titulo:'Confirmar respuesta'}"
+                          [style]="'width:220px;margin-top: 20px;margin-left:15px; background:#FF7424'" (ButtoclClick)="EnviarRespuesta()"></app-default-button>
+                          </div>
+                        </div>
+                        <br />
+                    </div>
+
+                    <!-- <div id="Retroalimentacion" style="display: none">
+                        <br />
+                        <div id="ContenedorVideo" class="embed-responsive embed-responsive-21by9">
+                            <iframe id="UrlVideo" class="embed-responsive-item" src="" allowfullscreen></iframe>
+                            <br />
+                        </div>
+                        <br />
+                        <div class="card" id="fueCorrecto" style="padding: 10px 35px; background: #e3ecff; border: solid 0px ">
+
+                            <span><img src="~/Content/Icono/TRISTE-02.svg" style="height:30px;" /> !La respuesta que marcaste es ...!</span>
+
+                        </div>
+                        <br />
+
+                        <h4 class="subtitulo btn-block" style=" margin-top: 3px;">Respuesta correcta:</h4>
+                        <p id="RespuestaCorrecta" style="border: 1px solid rgb(199 255 186); padding: 10px; border-radius: 5px; padding-left: 50px; ">
+                            RespuestaCorrecta
+                        </p>
+
+
+
+                        <h4 class="subtitulo btn-block">Explicación de la respuesta</h4>
+                        <p id="TextoRetroalimentacion">
+                            Texto de retroalimentacion.
+                        </p>
+
+
+                        <br />
+                        <div class="row">
+                            <button id="btnRegresar" class="btn col-sm-4 col-md-4 col-lg-4 buttons" onclick="SalirRetroAlimentación();" style="margin-bottom: 10px;margin-right:10px; background: #F40000; color: #fff"> Salir <img src="~/Content/Icono/FlechaDerecha.svg" style="height: 7px;" /></button>
+                            <button id="btnContinuar" class="btn col-sm-4  col-md-4 col-lg-4 buttons" onclick="SiguientePregunta();" style="margin-bottom: 10px; background: #ff8800; color: #fff">Continuar <img src="~/Content/Icono/FlechaDerecha.svg" style="height: 7px;" /></button>
+
+                        </div>
+                        <br />
+                    </div> -->
+                </div>
+            </div>
+  </div>
+
+</ng-container>

@@ -4,7 +4,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path:'login',component:LoginComponent},
+  {path:'Account/Login',component:LoginComponent},
   {path:'',loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)},
   {path:'**',component:ErrorPageComponent}
 ];

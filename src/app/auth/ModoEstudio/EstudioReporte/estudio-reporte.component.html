@@ -1,0 +1,65 @@
+<div class="row" style="background: white">
+  <div class="container" style="width: 63%;">
+    <div style="padding:0.75rem 1.25rem">
+      <div class="container">
+        <div class="rowpaddAv breadcrumb" style="padding-top: 0px !important; padding-bottom: 0px !important;">
+          <app-miga-pan [items]="migaPan"></app-miga-pan>
+        </div>
+      </div>
+      <div style="display:flex">
+        <img src="../../../assets/iconos/ModoEstudioSelect.svg" style="height: 35px; margin-right: 10px;" />
+        <div class="titulo">Modo Estudio</div>
+       </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="DominioResultado!=undefined && Examen!=undefined">
+  <div class="container" style="width: 63%;">
+    <div style="padding:0.75rem 1.25rem;">
+      <div id="datos" style="display: block">
+        <div class="row">
+          <div class="col-8 col-sm-9 ">
+
+              <div class="card" style="border-radius: 20px; background: white;">
+                <div class="card-body subtitulo" style="border-bottom: 1px solid #E4E4E4; border-radius: 20px 20px 0px 0px; margin-left: 14px;">
+                  <div><img style="margin-left: -14px" src="../../../../assets/iconos/data.svg" height="40" /> <span class="titulo" style="font-weight: 400;font-size: 25px;">Datos de la simulación</span> </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="card-text btn-block Seleccion" style="display: flex;">
+                        <b >Nombre: </b>
+                        <div  style=" color: #4a4a4a; font-weight: 400; margin-left: 10px;">
+                          {{NombreExamen}}
+                        </div>
+                      </div>
+                      <div class="card-text btn-block Seleccion" style="display: flex;">
+                        <b >Dominio: </b>
+                        <div style=" color: #4a4a4a; font-weight: 400;margin-left: 10px;">
+                          {{DominioResultado.nombre}}
+                        </div>
+                      </div>
+                      <div class="card-text btn-block Seleccion" style="display: flex;">
+                        <b >Fecha de inicio: </b>
+                        <div style=" color: #4a4a4a; font-weight: 400;margin-left: 10px;">
+                          {{Examen.fechaInicio|date: 'dd/MM/yyyy'}} - {{Examen.fechaInicio| date: 'HH:mm'}}
+                        </div>
+                      </div>
+                  </div>
+                  <div style="margin-left: 20px; font-size: 13px;color:#706E81 ;">
+                    * Nota: Preguntas pertenecientes a una versión anterior, puede que no contengan video de retroalimetación
+                  </div>
+              </div>
+          </div>
+          <div class="col-4 col-sm-3 ">
+              <div class="card" style="border-radius: 20px; background: #0aaff1;border:solid 0px">
+                  <div class="card-body" style="text-align: center; padding: 10px 0px;">
+                      <b style="color: white; font-size: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa fa-play" style="font-size: 5px;margin-right: 5px;"></i> TIEMPO UTILIZADO</b>
+                      <div style=" color: white; font-size: 90px; font-weight: 600; margin: -10px 0px;" id="TiempoMinuto"><!-- {{MinutoMostrar}} -->05</div>
+                      <b style="color: #fff000;">MINUTOS</b>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

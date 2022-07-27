@@ -1,0 +1,126 @@
+<div class="row" style="background: white">
+  <div class="container" style="width: 63%;">
+    <div style="padding:0.75rem 1.25rem">
+      <div class="container">
+        <div class="rowpaddAv breadcrumb" style="padding-top: 0px !important; padding-bottom: 0px !important;">
+          <app-miga-pan [items]="migaPan"></app-miga-pan>
+        </div>
+      </div>
+      <div style="display:flex">
+        <img src="../../../assets/iconos/ModoExamenSelect.svg" style="height: 35px; margin-right: 10px;" />
+        <div class="titulo">Modo Examen</div>
+       </div>
+    </div>
+  </div>
+</div>
+<div class="container" style="width: 63%;">
+  <div style="padding:0.75rem 1.25rem;display: flex;">
+    <div style="color:#fff;display: flex;justify-content: center;">
+      <div class="card CardsEstudio" style="border-radius:20px;">
+        <div class="card-header" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
+            <div class="text-center" style="padding: 0px 12px;"><b class="card-title">Número de simulaciones totales</b></div>
+        </div>
+        <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
+          <div class="text-center"><b style="font-size:60px;">17</b></div>
+        </div>
+    </div>
+    <div class="card CardsEstudio" style="border-radius:20px;">
+        <div class="card-header" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
+            <div class="text-center">
+                <b class="card-title">Número de simulaciones inconclusas</b>
+            </div>
+        </div>
+        <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
+          <div class="text-center"><b style="font-size:60px;">4</b></div>
+
+        </div>
+    </div>
+    <div class="card CardsEstudio" style="border-radius:20px;">
+        <div class="card-header" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
+            <div class="text-center" style="padding: 12px 0px;">
+                <b class="card-title">Tiempo de estudio total</b>
+            </div>
+        </div>
+        <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
+            <div class="text-center"><b style="font-size:60px;">00:12</b></div>
+            <div class="text-center"><span class="card-text">hh/mm</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="titulo" style="font-weight: 400 !important;">
+    Ficha de resultados de Prueba
+  </div>
+
+
+  <!-- Crear simulación de estudio -->
+  <div class="card" style="padding:30px;border-radius:20px;">
+    <div class="card-body" style="border-bottom: 1px solid #E4E4E4; border-radius: 20px 20px 0px 0px; padding: 0px;">
+      <div class="titulo" style="text-align: left"><img src="../../../assets/iconos/New.svg" style="height: 40px;" />
+        Crear simulación de examen
+      </div>
+    </div>
+    <div class="card-body" style="border-radius: 0px 0px 20px 20px; padding-top: 20px; padding-bottom:0px; ">
+      <div class="subtitulo">
+        Instrucciones:
+      </div>
+      <div style="text-align: justify">
+        En este modo se te presentarán 65 preguntas, con la estructura del examen AWS Certified Solutions Architect – Associate Level. Sólo al final se te mostrará tu puntaje en el examen. Recuerda que para aprobar necesitarás obtener como mínimo un 72% de puntaje en tu calificación general.
+      </div>
+      <form (submit)="RegistrarExamen()" [formGroup]="userForm">
+        <div class="form-horizontal" id="form-crearExamen">
+          <div class="row">
+            <div class="col-md-12" style="margin-top: 10px ">
+              <div class="subtitulo">Nombre de la simulación:</div>
+              <mat-form-field appearance="outline" [floatLabel]="'always'" style="width: 100%;">
+                <input type="text" placeholder="Escriba el nombre de la simulacion" formControlName="NombreSimulacion" matInput />
+                <mat-error *ngIf="userForm.invalid">Debe ingresar un nombre para la simulación</mat-error>
+              </mat-form-field>
+              </div>
+            </div>
+          </div>
+        <div style="justify-content: center;display:flex">
+          <app-default-button  [confs]="{color:'primary',titulo:'Comenzar'}"
+        [style]="'width:290px;margin-top: 20px;background:#FF7424'" ></app-default-button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+  <!-- Simulaciones completadas -->
+  <div class="card" style="padding:30px;border-radius:20px;">
+    <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
+      <div class="float-left">
+        <h2 class="titulo" style="text-align: left"><img src="../../../assets/iconos/check2.svg" style="height: 40px;" /> Simulaciones completadas</h2>
+      </div>
+      <div class="float-right">
+        <img src="../../../assets/iconos/champions.svg" height="35" style="position: absolute; top: -15px; left: 95%;" />
+      </div>
+    </div>
+    <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+    </div>
+  </div>
+  <br>
+  <!-- Simulaciones incompletas -->
+  <div class="card" style="padding:30px;border-radius:20px;">
+    <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
+      <div class="float-left">
+        <div class="titulo" style="text-align: left"><img src="../../../assets/iconos/question_2.svg" style="height: 40px;" />
+          Simulaciones incompletas
+        </div>
+      </div>
+      <div class="float-right">
+        <img src="../../../assets/iconos/alert.svg" height="35" style="position: absolute; top: -15px; left: 95%;" />
+      </div>
+    </div>
+    <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
