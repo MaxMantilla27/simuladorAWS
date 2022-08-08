@@ -73,8 +73,11 @@
               <div class="Enunciado">
                 {{Preguntas.pregunta.enunciado}}
               </div>
-              <div class="Seleccion">
+              <div *ngIf="Preguntas.pregunta.idSimuladorTipoRespuesta==1" class="Seleccion">
                 Seleccione la alternativa correcta:
+              </div>
+              <div *ngIf="Preguntas.pregunta.idSimuladorTipoRespuesta==5" class="Seleccion">
+                Seleccione las alternativas correctas:
               </div>
               <div id="Alternativas">
                 <ng-container *ngFor="let Respuesta of Preguntas.pregunta.respuesta; let j=index">
@@ -96,9 +99,9 @@
               <div class="row">
                 <div  style="justify-content: left;display:flex">
                   <app-default-button  [confs]="{color:'primary',titulo:'Responder y salir'}"
-                [style]="'width:220px;margin-top: 20px;background:#FF7424'" (ButtoclClick)="RegresarMenu(i)"></app-default-button>
+                [style]="'width:220px;margin-top: 20px;background:#FF7424'" (ButtoclClick)="RegresarMenu(i)" [disabled]="!RespuestaMarcada"></app-default-button>
                 <app-default-button  [confs]="{color:'primary',titulo:'Confirmar respuesta'}"
-                [style]="'width:220px;margin-top: 20px;margin-left:15px; background:#FF7424'" (ButtoclClick)="EnviarRespuesta(i)"></app-default-button>
+                [style]="'width:220px;margin-top: 20px;margin-left:15px; background:#FF7424'" (ButtoclClick)="EnviarRespuesta(i)" [disabled]="!RespuestaMarcada"></app-default-button>
                 </div>
               </div>
               <br />
@@ -147,7 +150,11 @@
                 Respuesta correcta:
               </div>
               <div id="RespuestaCorrecta" style="border: 1px solid rgb(199 255 186); padding: 10px; border-radius: 5px; padding-left: 50px; ">
-                  RespuestaCorrecta
+                <ng-container *ngFor="let Respuesta of Preguntas.pregunta.respuesta">
+                  <div *ngIf="Respuesta.valor==1" style="text-align: justify">
+                    {{Respuesta.respuesta}}
+                  </div>
+                </ng-container>
               </div>
 
               <div class="subtitulo btn-block" style="margin-top: 15px">Explicación de la respuesta</div>
@@ -175,3 +182,17 @@
   </div>
 
 </ng-container>
+<ng-container *ngIf="DatosExamen==undefined">
+  <div class="container" style="width: 63%;">
+    <div style="padding:0.75rem 1.25rem;width: 100%;height: 375px;">
+      <div style="margin-top: 100px; display: flex;justify-content: center;">
+        <mat-spinner></mat-spinner>
+      </div>
+      <div style="margin-top: 20px;text-align: center">
+        Los enunciados se están cargando ...
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+

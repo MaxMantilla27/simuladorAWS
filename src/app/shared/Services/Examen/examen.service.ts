@@ -31,5 +31,25 @@ export class ExamenService {
   public ObtenerNivelUsuario():Observable<any>{
     return this.http.get<any>(this.urlBase+'/ObtenerNivelUsuario');
   }
-
+  public ListaExamenesPorModo(IdModo:number):Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ListaExamenesPorModo/'+IdModo);
+  }
+  public ListaExamenesIncompletos():Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ListaExamenesIncompletos');
+  }
+  public ListaExamenesConcluidos():Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ListaExamenesConcluidos');
+  }
+  public ObtenerListaRankingExamenPorIntento(Intento:number):Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ObtenerListaRankingExamenPorIntento/'+Intento);
+  }
+  public ObtenerPromedioDominioPorModo(Modo:number):Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ObtenerPromedioDominioPorModo/'+Modo);
+  }
+  public ObtenerRespuestaExamenDetallePreguntaPorId(id:number):Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ObtenerRespuestaExamenDetallePreguntaPorId/'+id);
+  }
+  public ObtenerPromedioIntento():Observable<any>{
+    return this.http.get<any>(this.urlBase+'/ObtenerPromedioIntento');
+  }
 }

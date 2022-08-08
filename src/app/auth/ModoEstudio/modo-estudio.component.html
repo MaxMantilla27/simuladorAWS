@@ -21,7 +21,7 @@
             <div class="text-center" style="padding: 0px 12px;"><b class="card-title">Número de simulaciones totales</b></div>
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
-          <div class="text-center"><b style="font-size:60px;">17</b></div>
+          <div class="text-center"><b style="font-size:60px;">{{SimulacionesTotales}}</b></div>
         </div>
     </div>
     <div class="card CardsEstudio" style="border-radius:20px;">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
-          <div class="text-center"><b style="font-size:60px;">4</b></div>
+          <div class="text-center"><b style="font-size:60px;">{{SimulacionesInconclusas}}</b></div>
 
         </div>
     </div>
@@ -42,14 +42,61 @@
             </div>
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
-            <div class="text-center"><b style="font-size:60px;">00:12</b></div>
+            <div class="text-center"><b style="font-size:60px;">{{HoraMostrar}}:{{MinutoMostrar}}</b></div>
             <div class="text-center"><span class="card-text">hh/mm</span></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="titulo" style="font-weight: 400 !important;">
+  <div *ngIf="ResultadosPorDominio!=undefined" class="titulo" style="font-weight: 400 !important;">
     Mejor puntaje por dominio
+    <div class="row">
+      <div class="col-3">
+        <div style="margin-left: -25px">
+          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio1"></app-dona-puntos>
+        </div>
+        <div class="subtitulo">
+          Dominio 1:
+        </div>
+        <div style="font-size: 14px">
+          Diseñar arquitecturas resistentes.
+        </div>
+      </div>
+      <div class="col-3">
+        <div style="margin-left: -25px">
+          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio2"></app-dona-puntos>
+        </div>
+        <div class="subtitulo">
+          Dominio 2:
+        </div>
+        <div style="font-size: 14px">
+          Diseñar arquitecturas de alto rendimiento.
+        </div>
+      </div>
+      <div class="col-3">
+        <div style="margin-left: -25px">
+          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio3"></app-dona-puntos>
+        </div>
+        <div class="subtitulo">
+          Dominio 3:
+        </div>
+        <div style="font-size: 14px">
+          Diseñar aplicaciones y arquitecturas seguras.
+        </div>
+      </div>
+      <div class="col-3">
+        <div style="margin-left: -25px">
+          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio4"></app-dona-puntos>
+        </div>
+        <div class="subtitulo">
+          Dominio 4:
+        </div>
+        <div style="font-size: 14px">
+          Diseñar arquitecturas optimizadas para costos.
+        </div>
+      </div>
+
+    </div>
   </div>
 
 
@@ -75,39 +122,71 @@
                 Seleccione el dominio que desea estudiar:
               </div>
               <div class="container" style="display: flex">
-                <div class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=1">
+                <div *ngIf="DominioSeleccionado!=1" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=1">
                   <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE" >
                     <div>
                       <img src="../../../assets/iconos/procesos.svg">
                     </div>
-                    <div class="text-center" style="font-size:15px;color: white;" >Diseñar arquitecturas resistentes</div>
+                    <div class="text-center" style="font-size:15px;color: white;cursor: pointer;" >Diseñar arquitecturas resistentes</div>
+                  </div>
+                </div>
+                <div *ngIf="DominioSeleccionado==1" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=0">
+                  <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)" >
+                    <div>
+                      <img src="../../../assets/iconos/procesos.svg">
+                    </div>
+                    <div class="text-center" style="font-size:15px;color: white;cursor: pointer;" >Diseñar arquitecturas resistentes</div>
                   </div>
                 </div>
 
-                <div class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=2">
+                <div *ngIf="DominioSeleccionado!=2" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=2">
                   <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE">
                     <div>
                       <img src="../../../assets/iconos/procesos.svg">
                     </div>
-                    <div class="text-center" style="font-size:15px;color: white;">Diseñar arquitecturas de alto rendimiento</div>
+                    <div class="text-center" style="font-size:15px;color: white;cursor: pointer;">Diseñar arquitecturas de alto rendimiento</div>
+                  </div>
+                </div>
+                <div *ngIf="DominioSeleccionado==2" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=0">
+                  <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)">
+                    <div>
+                      <img src="../../../assets/iconos/procesos.svg">
+                    </div>
+                    <div class="text-center" style="font-size:15px;color: white;cursor: pointer;">Diseñar arquitecturas de alto rendimiento</div>
                   </div>
                 </div>
 
-                <div class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=3">
+                <div *ngIf="DominioSeleccionado!=3" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=3">
                   <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE">
                     <div>
                       <img src="../../../assets/iconos/procesos.svg">
                     </div>
-                    <div class="text-center"b style="font-size:15px;color: white;">Diseñar aplicaciones y arquitecturas seguras</div>
+                    <div class="text-center"b style="font-size:15px;color: white;cursor: pointer;">Diseñar aplicaciones y arquitecturas seguras</div>
+                  </div>
+                </div>
+                <div *ngIf="DominioSeleccionado==3" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=0">
+                  <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)">
+                    <div>
+                      <img src="../../../assets/iconos/procesos.svg">
+                    </div>
+                    <div class="text-center"b style="font-size:15px;color: white;cursor: pointer;">Diseñar aplicaciones y arquitecturas seguras</div>
                   </div>
                 </div>
 
-                <div class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=4">
+                <div *ngIf="DominioSeleccionado!=4" class="col-4 col-md-4 card CardsDominio" (click)="DominioSeleccionado=4">
                   <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE">
                     <div>
                       <img src="../../../assets/iconos/procesos.svg">
                     </div>
-                    <div class="text-center" style="font-size:15px;color: white;">Diseñar arquitecturas optimizadas para costos</div>
+                    <div class="text-center" style="font-size:15px;color: white;cursor: pointer;">Diseñar arquitecturas optimizadas para costos</div>
+                  </div>
+                </div>
+                <div *ngIf="DominioSeleccionado==4" class="col-4 col-md-4 card CardsDominioSelect" (click)="DominioSeleccionado=0">
+                  <div class="card-body" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)">
+                    <div>
+                      <img src="../../../assets/iconos/procesos.svg">
+                    </div>
+                    <div class="text-center" style="font-size:15px;color: white;cursor: pointer;">Diseñar arquitecturas optimizadas para costos</div>
                   </div>
                 </div>
 
@@ -137,7 +216,40 @@
   <div class="card" style="padding:30px;border-radius:20px;">
     <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
       <div class="float-left">
-        <h2 class="titulo" style="text-align: left"><img src="../../../assets/iconos/check2.svg" style="height: 40px;" /> Simulaciones completadas</h2>
+        <div class="titulo" style="text-align: left"><img src="../../../assets/iconos/check2.svg" style="height: 40px;" />
+          Simulaciones completadas
+        </div>
+        <div>
+          <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+            <ng-container *ngFor="let item of SimulacionesCompletadas">
+              <div  *ngIf="item.idSimuladorAwsModo==1" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
+                <div class="row" style="margin-top: 20px;margin-left: 0px;">
+                  <div class="col-9">
+                    <div>
+                      <b>Nombre: </b>  {{item.nombreExamen}}
+                    </div>
+                    <div>
+                      <b>Fecha de conclusión:</b> {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                    </div>
+                    <div style="display: flex">
+                      <div style="justify-content: center;display:flex; margin-right: 10px;">
+                        <app-default-button  [confs]="{color:'primary',titulo:'Ver resultados'}"
+                      [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEstudio/EstudioReporte/'+item.id" ></app-default-button>
+                      </div>
+                      <div style="justify-content: center;display:flex">
+                        <app-default-button  [confs]="{color:'primary',titulo:'Revisar preguntas'}"
+                      [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEstudio/EstudioRespuestaPregunta/'+item.id" ></app-default-button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <app-dona-puntos [Puntos]="item.desempenio"></app-dona-puntos>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
       </div>
       <div class="float-right">
         <img src="../../../assets/iconos/champions.svg" height="35" style="position: absolute; top: -15px; left: 95%;" />
@@ -153,6 +265,45 @@
       <div class="float-left">
         <div class="titulo" style="text-align: left"><img src="../../../assets/iconos/question_2.svg" style="height: 40px;" />
           Simulaciones incompletas
+        </div>
+        <div>
+          <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+            <ng-container *ngFor="let item of SimulacionesIncompletas">
+              <div  *ngIf="item.idSimuladorAwsModo==1" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
+                <div class="row" style="margin-top: 20px;margin-left: 0px;">
+                  <div class="col-6">
+                    <div>
+                      <b>Nombre: </b>  {{item.nombreExamen}}
+                    </div>
+                    <div>
+                      <b>Fecha ultimo cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                    </div>
+                    <div>
+                      <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasPendientes}}
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <mat-progress-bar mode="determinate" style="background-color: green;"
+                  [value]="(item.preguntasRespondidas/(item.preguntasRespondidas+item.preguntasPendientes))*100">
+                </mat-progress-bar>
+                    <div style="display: flex">
+                      <div style="margin-right: 160px">
+                        <b>Progreso:</b>
+                      </div>
+                      <div style="text-align: left;font-size:19px;color:#0684F2;font-weight: bold;">
+                        {{item.porcentajeAvance}}%
+                      </div>
+                    </div>
+                    <div style="justify-content: left;display:flex">
+                      <app-default-button  [confs]="{color:'primary',titulo:'Continuar'}"
+                    [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEstudio/EstudioPregunta/'+item.id" ></app-default-button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
       <div class="float-right">

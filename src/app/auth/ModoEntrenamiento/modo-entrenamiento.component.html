@@ -21,7 +21,7 @@
             <div class="text-center" style="padding: 0px 12px;"><b class="card-title">Número de simulaciones totales</b></div>
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
-          <div class="text-center"><b style="font-size:60px;">17</b></div>
+          <div class="text-center"><b style="font-size:60px;">{{SimulacionesTotales}}</b></div>
         </div>
     </div>
     <div class="card CardsEstudio" style="border-radius:20px;">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
-          <div class="text-center"><b style="font-size:60px;">4</b></div>
+          <div class="text-center"><b style="font-size:60px;">{{SimulacionesInconclusas}}</b></div>
 
         </div>
     </div>
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
-            <div class="text-center"><b style="font-size:60px;">00:12</b></div>
+            <div class="text-center"><b style="font-size:60px;">{{HoraMostrar}}:{{MinutoMostrar}}</b></div>
             <div class="text-center"><span class="card-text">hh/mm</span></div>
         </div>
       </div>
@@ -50,6 +50,23 @@
   </div>
   <div class="titulo" style="font-weight: 400 !important;">
     Resultados de simulaciones de entrenamiento
+    <div>
+      <div class="container" style="text-align: left;border-bottom: 1px solid #E4E4E4 ; margin-bottom: 5px;">
+        <img src="../../../assets/iconos/ModoEntrenamientoSelect.svg" style="height: 35px;" />
+      </div>
+      <mat-progress-bar mode="determinate" style="background-color: green;"
+            [value]="Promedio">
+      </mat-progress-bar>
+      <div class="row" style="margin-bottom: 20px;">
+        <div class="col-6" style="text-align: left;font-size: 17px;">
+          {{Promedio}} Puntos
+        </div>
+        <div class="col-6" style="text-align: right;font-size: 17px;font-weight: bold;">
+          Puntaje promedio / 100
+        </div>
+
+      </div>
+    </div>
   </div>
 
 
@@ -91,7 +108,40 @@
   <div class="card" style="padding:30px;border-radius:20px;">
     <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
       <div class="float-left">
-        <h2 class="titulo" style="text-align: left"><img src="../../../assets/iconos/check2.svg" style="height: 40px;" /> Simulaciones completadas</h2>
+        <div class="titulo" style="text-align: left"><img src="../../../assets/iconos/check2.svg" style="height: 40px;" />
+          Simulaciones completadas
+        </div>
+        <div>
+          <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+            <ng-container *ngFor="let item of SimulacionesCompletadas">
+              <div  *ngIf="item.idSimuladorAwsModo==2" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
+                <div class="row" style="margin-top: 20px;margin-left: 0px;">
+                  <div class="col-9">
+                    <div>
+                      <b>Nombre: </b>  {{item.nombreExamen}}
+                    </div>
+                    <div>
+                      <b>Fecha de conclusión:</b> {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                    </div>
+                    <div style="display: flex">
+                      <div style="justify-content: center;display:flex; margin-right: 10px;">
+                        <app-default-button  [confs]="{color:'primary',titulo:'Ver resultados'}"
+                      [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEntrenamiento/EntrenamientoReporte/'+item.id" ></app-default-button>
+                      </div>
+                      <div style="justify-content: center;display:flex">
+                        <app-default-button  [confs]="{color:'primary',titulo:'Revisar preguntas'}"
+                      [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEntrenamiento/EntrenamientoRespuestaPregunta/'+item.id" ></app-default-button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <app-dona-puntos [Puntos]="item.desempenio"></app-dona-puntos>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
       </div>
       <div class="float-right">
         <img src="../../../assets/iconos/champions.svg" height="35" style="position: absolute; top: -15px; left: 95%;" />
@@ -108,6 +158,45 @@
         <div class="titulo" style="text-align: left"><img src="../../../assets/iconos/question_2.svg" style="height: 40px;" />
           Simulaciones incompletas
         </div>
+        <div>
+          <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+            <ng-container *ngFor="let item of SimulacionesIncompletas">
+              <div  *ngIf="item.idSimuladorAwsModo==2" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
+                <div class="row" style="margin-top: 20px;margin-left: 0px;">
+                  <div class="col-6">
+                    <div>
+                      <b>Nombre: </b>  {{item.nombreExamen}}
+                    </div>
+                    <div>
+                      <b>Fecha ultimo cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                    </div>
+                    <div>
+                      <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasPendientes}}
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <mat-progress-bar mode="determinate" style="background-color: green;"
+                  [value]="(item.preguntasRespondidas/(item.preguntasRespondidas+item.preguntasPendientes))*100">
+                </mat-progress-bar>
+                    <div style="display: flex">
+                      <div style="margin-right: 160px">
+                        <b>Progreso:</b>
+                      </div>
+                      <div style="text-align: left;font-size:19px;color:#0684F2;font-weight: bold;">
+                        {{item.porcentajeAvance}}%
+                      </div>
+                    </div>
+                    <div style="justify-content: left;display:flex">
+                      <app-default-button  [confs]="{color:'primary',titulo:'Continuar'}"
+                    [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEntrenamiento/EntrenamientoPregunta/'+item.id" ></app-default-button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </ng-container>
+          </div>
+        </div>
       </div>
       <div class="float-right">
         <img src="../../../assets/iconos/alert.svg" height="35" style="position: absolute; top: -15px; left: 95%;" />
@@ -118,7 +207,6 @@
   </div>
 
 </div>
-
 
 
 

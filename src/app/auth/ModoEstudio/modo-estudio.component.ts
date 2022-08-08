@@ -41,8 +41,24 @@ export class ModoEstudioComponent implements OnInit {
     NombreSimulacion: new UntypedFormControl('',Validators.required),
   })
   public DominioSeleccionado=0;
+  public SimulacionesTotales=0;
+  public SimulacionesInconclusas=0;
+  public CantMEstudio=0;
+  public ListaEstudio:any;
+  public TiempoTotalEstudio=0;
+  public Hora=0;
+  public Minuto=0;
+  public HoraMostrar='';
+  public MinutoMostrar='';
+  public SimulacionesIncompletas:any;
+  public SimulacionesCompletadas:any;
+  public ResultadosPorDominio:any;
   ngOnInit(): void {
     this.ListaDominioCombo();
+    this.ListaExamenesPorModo();
+    this.ListaExamenesIncompletos();
+    this.ListaExamenesConcluidos();
+    this.ObtenerPromedioDominioPorModo();
   }
 
   RegistrarExamen(){
@@ -51,7 +67,7 @@ export class ModoEstudioComponent implements OnInit {
       this.RegistrarExamenEnvio.idSimuladorAwsModo=1,
       this.RegistrarExamenEnvio.nombreExamen=this.userForm.get('NombreSimulacion')?.value;
       this.RegistrarExamenEnvio.tiempo=0,
-      this.RegistrarExamenEnvio.idSimuladorAwsDominio=4;
+      this.RegistrarExamenEnvio.idSimuladorAwsDominio=this.DominioSeleccionado;
       console.log(this.RegistrarExamenEnvio)
       this._ExamenService.Registrar(this.RegistrarExamenEnvio).subscribe({
         next:(x)=>{
@@ -69,5 +85,53 @@ export class ModoEstudioComponent implements OnInit {
       }
     })
 
+  }
+  ListaExamenesPorModo(){
+    this.TiempoTotalEstudio=0;
+    this._ExamenService.ListaExamenesPorModo(1).subscribe({
+      next:(x)=>{
+        this.ListaEstudio=x
+        console.log(this.ListaEstudio)
+        this.CantMEstudio=x.length;
+        this.ListaEstudio.forEach((x:any)=>{
+          this.TiempoTotalEstudio=this.TiempoTotalEstudio+x.tiempo;
+          if(x.estadoExamen=="Finalizado")
+          this.SimulacionesTotales=this.SimulacionesTotales+1;
+        })
+        this.CantMEstudio=x.length;
+        this.SimulacionesInconclusas=this.CantMEstudio-this.SimulacionesTotales;
+      },
+      complete: () => {
+        this.Hora = Math.floor(this.TiempoTotalEstudio / 3600);
+        this.HoraMostrar = (this.Hora < 10) ? '0' + this.Hora : this.Hora.toString();
+        this.Minuto = Math.floor((this.TiempoTotalEstudio / 60) % 60);
+        this.MinutoMostrar = (this.Minuto < 10) ? '0' + this.Minuto : this.Minuto.toString();
+      }
+    });
+
+
+  }
+  ListaExamenesIncompletos(){
+    this._ExamenService.ListaExamenesIncompletos().subscribe({
+      next:(x)=>{
+        console.log(x)
+        this.SimulacionesIncompletas=x
+      }
+    })
+  }
+  ListaExamenesConcluidos(){
+    this._ExamenService.ListaExamenesConcluidos().subscribe({
+      next:(x)=>{
+        console.log(x)
+        this.SimulacionesCompletadas=x
+      }
+    })
+  }
+  ObtenerPromedioDominioPorModo(){
+    this._ExamenService.ObtenerPromedioDominioPorModo(1).subscribe({
+      next:(x)=>{
+        this.ResultadosPorDominio=x
+      }
+    })
   }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ExamenService } from 'src/app/shared/Services/Examen/examen.service';
 
 @Component({
   selector: 'app-ranking',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RankingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _router: Router,
+    private _ExamenService:ExamenService
+  ) { }
   public migaPan = [
     {
       titulo: 'Simulador AWS',
@@ -18,7 +23,19 @@ export class RankingComponent implements OnInit {
       urlWeb: '/Ranking',
     },
   ];
+  public DatoRanking:any
   ngOnInit(): void {
+    this.ObtenerListaRankingExamenPorIntento(1)
+  }
+  ObtenerListaRankingExamenPorIntento(Intento:number){
+    console.log(Intento)
+    this._ExamenService.ObtenerListaRankingExamenPorIntento(Intento).subscribe({
+      next:(x)=>{
+        console.log(x);
+        this.DatoRanking=x
+      }
+    })
+
   }
 
 }

@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DefaultButtonComponent } from './buttons/default-button/default-button.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +20,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { MigaPanComponent } from './miga-pan/miga-pan.component';
 import { LinkButtonComponent } from './buttons/link-button/link-button.component';
+import { NgChartsModule } from 'ng2-charts';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { PieComponent } from './Charts/Pie/pie.component';
+import { DonaComponent } from './Charts/Dona/dona.component';
+import { BarrasComponent } from './Charts/Barras/barras.component';
+import { LineComponent } from './Charts/Line/line.component';
+import { DonaPuntosComponent } from './Charts/DonaPuntos/dona-puntos.component';
+
 
 @NgModule({
   declarations: [
@@ -25,6 +35,11 @@ import { LinkButtonComponent } from './buttons/link-button/link-button.component
     DefaultButtonComponent,
     MigaPanComponent,
     LinkButtonComponent,
+    PieComponent,
+    DonaComponent,
+    BarrasComponent,
+    LineComponent,
+    DonaPuntosComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +55,9 @@ import { LinkButtonComponent } from './buttons/link-button/link-button.component
     MatFormFieldModule,
     MatCheckboxModule,
     MatCardModule,
-
+    NgChartsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
   ],
   exports:[
     MatToolbarModule,
@@ -59,7 +76,13 @@ import { LinkButtonComponent } from './buttons/link-button/link-button.component
     MatCardModule,
     MigaPanComponent,
     MatSelectModule,
-
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    PieComponent,
+    DonaComponent,
+    BarrasComponent,
+    LineComponent,
+    DonaPuntosComponent
   ]
 })
 export class SharedModule { }

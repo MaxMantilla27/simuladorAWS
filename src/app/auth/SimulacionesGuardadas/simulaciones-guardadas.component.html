@@ -25,7 +25,29 @@
       </div>
     </div>
     <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
-      No hay simulaciones guardadas.
+      <ng-container *ngFor="let item of SimulacionesIncompletas">
+        <div  *ngIf="item.idSimuladorAwsModo==3" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
+          <div class="row" style="margin-top: 20px;margin-left: 0px;">
+            <div class="col-8">
+              <div>
+                <b>Nombre: </b>  {{item.nombreExamen}}
+              </div>
+              <div>
+                <b>Progreso:</b> {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}
+              </div>
+            </div>
+            <div class="col-4">
+              <div style="justify-content: center;display:flex">
+                <app-default-button  [confs]="{color:'primary',titulo:'Continuar'}"
+              [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoExamen/ExamenPregunta/'+item.id" ></app-default-button>
+              </div>
+            </div>
+          </div>
+          <mat-progress-bar mode="determinate" style="background-color: green;"
+            [value]="(item.preguntasRespondidas/(item.preguntasRespondidas+item.preguntasPendientes))*100">
+          </mat-progress-bar>
+        </div>
+      </ng-container>
     </div>
   </div>
   <br>
@@ -39,7 +61,29 @@
       </div>
     </div>
     <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
-      No hay simulaciones guardadas.
+      <ng-container *ngFor="let item of SimulacionesIncompletas">
+        <div *ngIf="item.idSimuladorAwsModo==2" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;" >
+          <div class="row" style="margin-top: 20px;margin-left: 0px;">
+            <div class="col-8">
+              <div>
+                <b>Nombre: </b>  {{item.nombreExamen}}
+              </div>
+              <div>
+                <b>Progreso:</b> {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}
+              </div>
+            </div>
+            <div class="col-4">
+              <div style="justify-content: center;display:flex">
+                <app-default-button  [confs]="{color:'primary',titulo:'Continuar'}"
+              [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEntrenamiento/EntrenamientoPregunta/'+item.id" ></app-default-button>
+              </div>
+            </div>
+          </div>
+          <mat-progress-bar mode="determinate"
+            [value]="(item.preguntasRespondidas/(item.preguntasRespondidas+item.preguntasPendientes))*100">
+          </mat-progress-bar>
+        </div>
+      </ng-container>
     </div>
   </div>
   <br>
@@ -53,7 +97,29 @@
       </div>
     </div>
     <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
-      No hay simulaciones guardadas.
+      <ng-container *ngFor="let item of SimulacionesIncompletas">
+        <div  *ngIf="item.idSimuladorAwsModo==1" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
+          <div class="row" style="margin-top: 20px;margin-left: 0px;">
+            <div class="col-8">
+              <div>
+                <b>Nombre: </b>  {{item.nombreExamen}}
+              </div>
+              <div>
+                <b>Progreso:</b> {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}
+              </div>
+            </div>
+            <div class="col-4">
+              <div style="justify-content: center;display:flex">
+                <app-default-button  [confs]="{color:'primary',titulo:'Continuar'}"
+              [style]="'width:170px;margin-top: 20px;background:#FF7424'" [routerLink]="'/ModoEstudio/EstudioPregunta/'+item.id" ></app-default-button>
+              </div>
+            </div>
+          </div>
+          <mat-progress-bar mode="determinate"
+            [value]="(item.preguntasRespondidas/(item.preguntasRespondidas+item.preguntasPendientes))*100">
+          </mat-progress-bar>
+        </div>
+      </ng-container>
     </div>
   </div>
 

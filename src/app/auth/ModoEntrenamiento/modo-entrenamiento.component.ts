@@ -36,7 +36,26 @@ export class ModoEntrenamientoComponent implements OnInit {
   public userForm :UntypedFormGroup=new UntypedFormGroup({
     NombreSimulacion: new UntypedFormControl('',Validators.required),
   })
+  public DominioSeleccionado=0;
+  public SimulacionesTotales=0;
+  public SimulacionesInconclusas=0;
+  public CantMEntrenamiento=0;
+  public ListaEntrenamiento:any;
+  public TiempoTotalEstudio=0;
+  public Hora=0;
+  public Minuto=0;
+  public HoraMostrar='';
+  public MinutoMostrar='';
+  public SimulacionesIncompletas:any;
+  public SimulacionesCompletadas:any
+  public PromedioDominio=0
+  public ContEntrenamiento=0;
+  public Promedio=0;
   ngOnInit(): void {
+    this.ListaExamenesIncompletos();
+    this.ListaExamenesConcluidos();
+    this.ListaExamenesPorModo();
+    this.ObtenerPromedioDominioPorModo()
   }
   RegistrarExamen(){
     if(this.userForm.valid){
@@ -53,5 +72,68 @@ export class ModoEntrenamientoComponent implements OnInit {
         }
       })
     }
+  }
+  ListaExamenesPorModo(){
+    this.TiempoTotalEstudio=0;
+    this._ExamenService.ListaExamenesPorModo(2).subscribe({
+      next:(x)=>{
+        this.ListaEntrenamiento=x
+        console.log(this.ListaEntrenamiento)
+        this.CantMEntrenamiento=x.length;
+        this.ListaEntrenamiento.forEach((x:any)=>{
+          this.TiempoTotalEstudio=this.TiempoTotalEstudio+x.tiempo;
+          if(x.estadoExamen=="Finalizado")
+          this.SimulacionesTotales=this.SimulacionesTotales+1;
+        })
+        this.CantMEntrenamiento=x.length;
+        this.SimulacionesInconclusas=this.CantMEntrenamiento-this.SimulacionesTotales;
+      },
+      complete: () => {
+        this.Hora = Math.floor(this.TiempoTotalEstudio / 3600);
+        this.HoraMostrar = (this.Hora < 10) ? '0' + this.Hora : this.Hora.toString();
+        this.Minuto = Math.floor((this.TiempoTotalEstudio / 60) % 60);
+        this.MinutoMostrar = (this.Minuto < 10) ? '0' + this.Minuto : this.Minuto.toString();
+      }
+    });
+  }
+
+  ListaExamenesIncompletos(){
+    this._ExamenService.ListaExamenesIncompletos().subscribe({
+      next:(x)=>{
+        this.SimulacionesIncompletas=x
+      }
+    })
+  }
+  ListaExamenesConcluidos(){
+    this.ContEntrenamiento=0;
+    this.PromedioDominio=0;
+    this.Promedio=0;
+    this._ExamenService.ListaExamenesConcluidos().subscribe({
+      next:(x)=>{
+        this.SimulacionesCompletadas=x;
+        this.SimulacionesCompletadas.forEach((y:any)=>{
+          if(y.idEstadoExamen==3 && y.idSimuladorAwsModo==2){
+            this.ContEntrenamiento=this.ContEntrenamiento+1;
+            this.PromedioDominio=this.PromedioDominio+y.desempenio;
+            console.log(y.desempenio)
+          }
+
+        })
+        this.Promedio=Math.floor(this.PromedioDominio/this.ContEntrenamiento);
+        if(this.Promedio>=0){
+          this.Promedio=this.Promedio;
+        }
+        else{
+          this.Promedio=0;
+        }
+      }
+    })
+  }
+  ObtenerPromedioDominioPorModo(){
+    this._ExamenService.ObtenerPromedioDominioPorModo(2).subscribe({
+      next:(x)=>{
+        console.log(x)
+      }
+    })
   }
 }

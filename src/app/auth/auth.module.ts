@@ -20,6 +20,7 @@ import { EntrenamientoRespuestaPreguntaComponent } from './ModoEntrenamiento/Ent
 import { ExamenPreguntaComponent } from './ModoExamen/ExamenPregunta/examen-pregunta.component';
 import { ExamenReporteComponent } from './ModoExamen/ExamenReporte/examen-reporte.component';
 import { ExamenRespuestaPreguntaComponent } from './ModoExamen/ExamenRespuestaPregunta/examen-respuesta-pregunta.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -42,16 +43,13 @@ import { ExamenRespuestaPreguntaComponent } from './ModoExamen/ExamenRespuestaPr
     EstudioRespuestaPreguntaComponent,
     ExamenPreguntaComponent,
     ExamenReporteComponent,
-    ExamenRespuestaPreguntaComponent,
-
-
-
+    ExamenRespuestaPreguntaComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-
+    NgChartsModule,
   ]
 })
 export class AuthModule { }

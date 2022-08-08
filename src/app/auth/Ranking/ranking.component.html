@@ -21,33 +21,87 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist" style="justify-content: space-between;">
                 <li class="nav-item" role="presentation">
-                    <a href="#intento1" class="nav-link active" id="intento1-tab" data-bs-toggle="tab" data-bs-target="#intento1" role="tab" aria-controls="intento1" aria-selected="true" data-Intento="1">Intento 1</a>
+                    <a href="#intento1" class="nav-link active" id="intento1-tab" data-bs-toggle="tab" data-bs-target="#intento1" role="tab" aria-controls="intento1" aria-selected="true" (click)="ObtenerListaRankingExamenPorIntento(1)">Intento 1</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#intento2" class="nav-link" id="intento2-tab" data-bs-toggle="tab" data-bs-target="#intento2" role="tab" aria-controls="intento2" aria-selected="false" data-Intento="2">Intento 2</a>
+                    <a href="#intento2" class="nav-link" id="intento2-tab" data-bs-toggle="tab" data-bs-target="#intento2" role="tab" aria-controls="intento2" aria-selected="false" (click)="ObtenerListaRankingExamenPorIntento(2)">Intento 2</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#intento3" class="nav-link" id="intento3-tab" data-bs-toggle="tab" data-bs-target="#intento3" role="tab" aria-controls="intento3" aria-selected="false" data-Intento="3">Intento 3</a>
+                    <a href="#intento3" class="nav-link" id="intento3-tab" data-bs-toggle="tab" data-bs-target="#intento3" role="tab" aria-controls="intento3" aria-selected="false" (click)="ObtenerListaRankingExamenPorIntento(3)">Intento 3</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#intento4" class="nav-link" id="intento4-tab" data-bs-toggle="tab" data-bs-target="#intento4" role="tab" aria-controls="intento4" aria-selected="false" data-Intento="4">Intento 4</a>
+                    <a href="#intento4" class="nav-link" id="intento4-tab" data-bs-toggle="tab" data-bs-target="#intento4" role="tab" aria-controls="intento4" aria-selected="false" (click)="ObtenerListaRankingExamenPorIntento(4)">Intento 4</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a href="#intento5" class="nav-link" id="intento5-tab" data-bs-toggle="tab" data-bs-target="#intento5" role="tab" aria-controls="intento5" aria-selected="false" data-Intento="5">Intento 5 a +</a>
+                    <a href="#intento5" class="nav-link" id="intento5-tab" data-bs-toggle="tab" data-bs-target="#intento5" role="tab" aria-controls="intento5" aria-selected="false" (click)="ObtenerListaRankingExamenPorIntento(5)">Intento 5 a +</a>
                 </li>
             </ul>
             <div class="tab-content" style="margin-top: 40px;">
                 <div class="tab-pane active" id="intento1" role="tabpanel" aria-labelledby="intento1-tab">
                     <div id="Ranking1" class="row">
+
                     </div>
                     <br />
                 </div>
 
+                <div class="card" style="border-radius:20px;">
+                  <div class="card-body" style=" padding: 1.5rem 3rem 1rem 3rem;">
+                    <div class="tab-pane fade" id="intento2" role="tabpanel" aria-labelledby="intento2-tab">
+                      <div id="Ranking2" class="row">
+                        <ng-container *ngFor="let item of DatoRanking,let i=index;">
+                          <div class="col-4">
+                            <div>
+                              <b>{{i+1}}°</b>
+                            </div>
+                            <div>
+                              <img style="height: 180px;" class="ImgAvatar" [src]="'https://avataaars.io/?avatarStyle=Circle&topType='+item.usuarioAvatar.top+'&accessoriesType='+
+                              item.usuarioAvatar.accesories+'&hairColor='+
+                              item.usuarioAvatar.hair_Color+'&facialHairType='+
+                              item.usuarioAvatar.facial_Hair+'&facialHairColor='+
+                              item.usuarioAvatar.facial_Hair_Color+'&clotheType='+
+                              item.usuarioAvatar.clothes+'&clotheColor='+
+                              item.usuarioAvatar.clothes_Color+'&eyeType='+
+                              item.usuarioAvatar.eyes+'&eyebrowType='+
+                              item.usuarioAvatar.eyesbrow+'&mouthType='+
+                              item.usuarioAvatar.mouth+'&skinColor='+
+                              item.usuarioAvatar.skin">
+                            </div>
+                            <div style="text-align: center;font-size:25px">
+                              {{item.usuarioAvatar.nombre}}
+                            </div>
+                          </div>
+                          <div class="col-8">
+                            <div class="card" style="display:flex; background: #FFE600;font-size: 16px;margin-top: 10px;">
+                              <div >
+                              <img height="20px" src="../../../assets/iconos/star.svg"> <b style="margin-right:76px"> Ranking general</b>{{item.examen.examen.desempenio}}
+                              </div>
+                            </div>
+                            <div style="font-weight:bold;margin-bottom:5px">
+                              Puntaje por dominio:
+                            </div>
+                            <ng-container *ngFor="let Dominios of item.examen.dominioResultado">
+                              <div class="row">
+                                <div class="col-9" >
+                                  {{Dominios.nombre}}
+                                </div>
+                                <div class="col-3" style="text-align: right">
+                                  {{Dominios.desempenio}}
+                                </div>
+                              </div>
+                              <mat-progress-bar mode="determinate" style="background-color: green;"
+                                [value]="Dominios.desempenio">
+                              </mat-progress-bar>
+                            </ng-container>
 
-                <div class="tab-pane fade" id="intento2" role="tabpanel" aria-labelledby="intento2-tab">
-                    <div id="Ranking2" class="row">
-                    </div>
-                    <br />
+                          </div>
+                        </ng-container>
+
+                      </div>
+
+                      <br />
+                  </div>
+                  </div>
+
                 </div>
 
                 <div class="tab-pane fade" id="intento3" role="tabpanel" aria-labelledby="intento3-tab">

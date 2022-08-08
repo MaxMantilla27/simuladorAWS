@@ -35,6 +35,7 @@ export class EstudioPreguntaComponent implements OnInit {
   public CantidadTotalPreguntas=0;
   public ContadorPreguntaActual=0;
   public ContadorPregunta=0;
+  public ContadorAux=0;
   public valPregunta=false
   public TiempoSegundo=0;
   public Hora=0;
@@ -72,6 +73,7 @@ export class EstudioPreguntaComponent implements OnInit {
   /* public DetalleRespuestaEnvio:any */
   public Retroalimentacion= false;
   public RespuestaCorrecta=false;
+  public RespuestaMarcada=false;
 
 
   ngOnInit(): void {
@@ -80,7 +82,6 @@ export class EstudioPreguntaComponent implements OnInit {
       this.IdExamen = auxParams[auxParams.length -1];
     })
     this.ObtenerExamenDetallePreguntaPorId();
-    this.Cronometro();
 
   }
 
@@ -90,88 +91,111 @@ export class EstudioPreguntaComponent implements OnInit {
         console.log(x)
         this.DatosExamen=x;
         this.ListaPreguntas=x.listaPreguntas;
-        this.CantidadTotalPreguntas=x.preguntasPendientes+x.preguntasRespondidas;
-        this.ContadorPreguntaActual=this.ContadorPregunta+1+x.preguntasRespondidas;
-        this.NombreDominio=this.ListaPreguntas[0].dominioNombre;
-
+        if(this.ListaPreguntas.length==0){
+          this._router.navigate(['/ModoEstudio/EstudioReporte/'+this.IdExamen]);
+        }
+        else{
+          this.CantidadTotalPreguntas=x.preguntasPendientes+x.preguntasRespondidas;
+          this.ContadorPreguntaActual=this.ContadorPregunta+1+x.preguntasRespondidas;
+          this.NombreDominio=this.ListaPreguntas[0].dominioNombre;
+          this.ContadorAux=this.CantidadTotalPreguntas-1;
+          this.TiempoSegundo=x.tiempo;
+          this.Cronometro(this.TiempoSegundo);
+        }
       }
     })
   }
   chageRadio(value: number,i: number, j: number) {
-      if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] ) {
+    this.RespuestaMarcada=false;
+      if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==1) {
         this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
           x.respuestaSelecionada=0
         })
+        this.RespuestaMarcada=true;
         return 1;
       }
+      if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==5) {
+        this.RespuestaMarcada=true
+        return 1;
+      }
+      this.RespuestaMarcada=false;
       return 0;
+
   }
   RegresarMenu(i:number){
-    this.EnviarRespuesta(i);
     this.Retroalimentacion=false;
+    this.EnviarRespuesta(i);
     this._router.navigate(['/ModoEstudio']);
   }
   EnviarRespuesta(i:number){
     this.RegistroEnvioRespuesta.respuestaDetalle=[],
-    /* this.DetalleRespuestaEnvio=undefined, */
     this.RegistroEnvioRespuesta.id=this.IdExamen,
     this.RegistroEnvioRespuesta.idSimuladorAwsModo=1,
     this.RegistroEnvioRespuesta.nombreExamen='',
     this.RegistroEnvioRespuesta.tiempo=this.TiempoSegundo,
     this.RegistroEnvioRespuesta.idAspNetUsers='',
     this.RegistroEnvioRespuesta.usuario='',
-    this.RegistroEnvioRespuesta.estadoExamen=2,
     this.RegistroEnvioRespuesta.puntaje=0,
     this.RegistroEnvioRespuesta.desempenio=0,
     this.RegistroEnvioRespuesta.percentil=0,
-    this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=1,
-    this.DetalleRespuestaEnvio.id=this.ListaPreguntas[i].id;
-    this.DetalleRespuestaEnvio.idSimuladorAwsExamen=0,
-    this.DetalleRespuestaEnvio.idSimuladorAwsDominio=0,
-    this.DetalleRespuestaEnvio.idSimuladorAwsTarea=0,
-    this.DetalleRespuestaEnvio.idSimuladorAwsPregunta=this.ListaPreguntas[i].idSimuladorAwsPregunta,
-    this.DetalleRespuestaEnvio.ejecutado=false,
+    this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=this.ListaPreguntas.pregunta.idSimuladorTipoRespuesta,
     this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
       if(x.respuestaSelecionada==1){
-        this.DetalleRespuestaEnvio.idSimuladorAwsPreguntaRespuesta=x.id
+        this.DetalleRespuestaEnvio.idSimuladorAwsPreguntaRespuesta=x.id;
+        this.DetalleRespuestaEnvio.id=this.ListaPreguntas[i].id;
+        this.DetalleRespuestaEnvio.idSimuladorAwsExamen=0;
+        this.DetalleRespuestaEnvio.idSimuladorAwsDominio=0;
+        this.DetalleRespuestaEnvio.idSimuladorAwsTarea=0;
+        this.DetalleRespuestaEnvio.idSimuladorAwsPregunta=this.ListaPreguntas[i].idSimuladorAwsPregunta;
+        this.DetalleRespuestaEnvio.ejecutado=false;
+        this.DetalleRespuestaEnvio.puntaje=0;
+        this.DetalleRespuestaEnvio.idAspNetUsers='';
+        this.DetalleRespuestaEnvio.usuario=''
+        if(this.ContadorPreguntaActual<=this.ContadorAux){
+          this.RegistroEnvioRespuesta.estadoExamen=2
+        }
+        else{
+          this.RegistroEnvioRespuesta.estadoExamen=3
+        }
+        this.RegistroEnvioRespuesta.respuestaDetalle.push(this.DetalleRespuestaEnvio)
       }
+
     })
-    this.DetalleRespuestaEnvio.puntaje=0,
-    this.DetalleRespuestaEnvio.idAspNetUsers='',
-    this.DetalleRespuestaEnvio.usuario='',
-    this.RegistroEnvioRespuesta.respuestaDetalle.push(this.DetalleRespuestaEnvio),
+    console.log(this.RegistroEnvioRespuesta)
     this._ExamenService.RegistrarRespuestaSeleccion(this.RegistroEnvioRespuesta).subscribe({
       next:(x)=>{
-        console.log(x)
-        this.RespuestaCorrecta=x;
-      }
+        this.RespuestaCorrecta=x
+      },
+      complete:()=>{
+        this.Retroalimentacion=true
+      },
     })
-    this.Retroalimentacion=true;
+    this.RespuestaMarcada=false
   }
   SalirRetroalimentacion(){
     this._router.navigate(['/ModoEstudio']);
+    this.ContadorPregunta=this.ContadorPregunta+1;
   }
   SiguientePregunta(){
     this.ContadorPregunta=this.ContadorPregunta+1;
     this.ContadorPreguntaActual=this.ContadorPreguntaActual+1;
     this.Retroalimentacion=false;
-    if (this.ContadorPreguntaActual=this.CantidadTotalPreguntas-1){
+    if (this.ContadorPreguntaActual>this.CantidadTotalPreguntas){
       this._router.navigate(['/ModoEstudio/EstudioReporte/'+this.IdExamen]);
     }
   }
-  Cronometro(){
-    this.TiempoSegundo=this.TiempoSegundo+1;
-    console.log(this.TiempoSegundo)
-    this.Hora = Math.floor(this.TiempoSegundo / 3600);
+  Cronometro(TiempoSegundo:number){
+    TiempoSegundo=TiempoSegundo+1;
+    this.Hora = Math.floor(TiempoSegundo / 3600);
     this.HoraMostrar = (this.Hora < 10) ? '0' + this.Hora : this.Hora.toString();
-    this.Minuto = Math.floor(this.TiempoSegundo / 60);
+    this.Minuto = Math.floor((TiempoSegundo / 60) % 60);
     this.MinutoMostrar = (this.Minuto < 10) ? '0' + this.Minuto : this.Minuto.toString();
-    this.Segundo = this.TiempoSegundo % 60;
+    this.Segundo = TiempoSegundo % 60;
     this.SegundoMostrar = (this.Segundo < 10) ? '0' + this.Segundo : this.Segundo.toString();
     setTimeout(()=>{
-      this.Cronometro();
+      this.Cronometro(TiempoSegundo);
     },1000)
-    setTimeout(() => { clearInterval(this.TiempoSegundo); alert('stop'); }, 14400);
+
   }
 
 }
