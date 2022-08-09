@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
+import { AuthGuard } from './Guard/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { EntrenamientoPreguntaComponent } from './ModoEntrenamiento/EntrenamientoPregunta/entrenamiento-pregunta.component';
 import { EntrenamientoReporteComponent } from './ModoEntrenamiento/EntrenamientoReporte/entrenamiento-reporte.component';
@@ -20,7 +21,7 @@ import { SimulacionesGuardadasComponent } from './SimulacionesGuardadas/simulaci
 
 const routes: Routes = [
   {
-    path: '', component: AuthComponent  , children:
+    path: '', component: AuthComponent  , canActivateChild:[AuthGuard] , children:
       [
         { path: '', component: HomeComponent},
         { path:'ModoEstudio', component: ModoEstudioComponent},
