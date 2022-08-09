@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivateChild {
     if(this._SessionStorageService.validateTokken()){
     return true;
     }
-    this._router.navigate(['Account/Login'])
+    this._router.navigate(['Account/login'])
     return false;
   }
 
