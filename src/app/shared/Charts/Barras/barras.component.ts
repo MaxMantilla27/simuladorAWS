@@ -25,7 +25,17 @@ export class BarrasComponent implements OnInit {
     datasets: [
       { data: [0,0,0,0],
         label: 'Puntaje',
-        backgroundColor: '#00C356'}
+        backgroundColor: '#00C356',
+        hoverBackgroundColor:[
+          '#00C356',
+        ],
+        hoverBorderColor:[
+          '#00C356',
+        ],
+        borderColor:[
+          '#00C356',
+        ]
+      }
     ]
   };
   ngOnChanges(changes: SimpleChanges): void {
@@ -62,7 +72,16 @@ export class BarrasComponent implements OnInit {
       datasets: [
         { data: [ this.ResultadoDominio1, this.ResultadoDominio2, this.ResultadoDominio3, this.ResultadoDominio4],
           label: 'Puntaje (%)',
-          backgroundColor: '#00C356'}
+          backgroundColor: '#00C356',
+          hoverBackgroundColor:[
+            '#00C356',
+          ],
+          hoverBorderColor:[
+            '#00C356',
+          ],
+          borderColor:[
+            '#00C356',
+          ]}
       ]
     }
   }
@@ -93,7 +112,16 @@ export class BarrasComponent implements OnInit {
       datasets: [
         { data: [ 0, 0, 0, 0],
           label: 'Puntaje',
-          backgroundColor: '#00C356'}
+          backgroundColor: '#00C356',
+          hoverBackgroundColor:[
+            '#00C356',
+          ],
+          hoverBorderColor:[
+            '#00C356',
+          ],
+          borderColor:[
+            '#00C356',
+          ]}
       ]
     }
   }

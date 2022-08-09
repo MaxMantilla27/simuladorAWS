@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -12,6 +12,9 @@ export class DonaComponent implements OnInit {
 
   constructor() { }
   @Input() Puntos=0;
+  public tresDigitos=false;
+  public dosDigitos=false;
+  public unDigito=false;
   //Dona
   public doughnutChartOptions: ChartConfiguration['options'] = {};
   public doughnutChartData: ChartData<'doughnut',number[]> = {
@@ -22,16 +25,37 @@ export class DonaComponent implements OnInit {
           '#00C356',
           '#E8E8E5'
       ],
+      hoverBackgroundColor:[
+        '#00C356',
+        '#E8E8E5'
+      ],
+      hoverBorderColor:[
+        '#00C356',
+        '#E8E8E5'
+      ]
     }]
   };
   public doughnutChartType: ChartType = 'doughnut';
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if(this.Puntos>=0){
+      this.Puntos=Math.floor(this.Puntos)
+      if(this.Puntos==100){
+        this.tresDigitos=true;
+      }
+      else if(this.Puntos<=99 && this.Puntos>=10){
+        this.dosDigitos=true;
+      }
+      else{
+        this.unDigito=true;
+      }
       this.ValoresChart()
     }
-    if(this.Puntos==0){
+    else{
       this.ValoresChartInicio()
     }
+  }
+
+  ngOnInit(): void {
   }
   ValoresChart(){
     //Opciones
@@ -59,6 +83,14 @@ export class DonaComponent implements OnInit {
           '#00C356',
           '#E8E8E5'
         ],
+        hoverBackgroundColor:[
+          '#00C356',
+          '#E8E8E5'
+        ],
+        hoverBorderColor:[
+          '#00C356',
+          '#E8E8E5'
+        ]
       }]
     }
   }
@@ -89,6 +121,14 @@ export class DonaComponent implements OnInit {
           '#00C356',
           '#E8E8E5'
         ],
+        hoverBackgroundColor:[
+          '#00C356',
+          '#E8E8E5'
+        ],
+        hoverBorderColor:[
+          '#00C356',
+          '#E8E8E5'
+        ]
       }]
     }
   }

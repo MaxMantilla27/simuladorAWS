@@ -85,7 +85,6 @@ export class EntrenamientoPreguntaComponent implements OnInit {
   ObtenerExamenDetallePreguntaPorId(){
     this._ExamenService.ObtenerExamenDetallePreguntaPorId(this.IdExamen).subscribe({
       next:(x)=>{
-        console.log(x)
         this.DatosExamen=x;
         this.ListaPreguntas=x.listaPreguntas;
         if(this.ListaPreguntas.length==0){
@@ -158,7 +157,6 @@ EnviarRespuesta(i:number){
       }
 
     })
-    console.log(this.RegistroEnvioRespuesta)
     this._ExamenService.RegistrarRespuestaSeleccion(this.RegistroEnvioRespuesta).subscribe({
       next:(x)=>{
         this.RespuestaCorrecta=x

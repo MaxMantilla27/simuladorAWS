@@ -131,6 +131,9 @@
                             <div *ngIf="Examen!=undefined" class="chart" style="width: 165px;margin-left: 25px;">
                               <app-dona-puntos [Puntos]="Puntos"></app-dona-puntos>
                             </div>
+                            <div *ngIf="Examen==undefined"  style=" font-size: 15px;margin-top: 10px;" >
+                              No tiene simulaciones realizadas en modo examen.
+                            </div>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -183,7 +186,7 @@
                   <div class="subtitulo">Simulaciones con mayor puntaje:
 
                   </div>
-                  <div style="display: flex">
+                  <div *ngIf="CantMEntrenamiento!=0" style="display: flex">
                     <ng-container *ngFor="let item of ListaEntrenamiento">
                       <div *ngIf="item.idEstadoExamen==3 && ContadorEntrenamiento<=3">
                         <div>
@@ -195,7 +198,9 @@
                       </div>
                     </ng-container>
                   </div>
-
+                  <div  *ngIf="CantMEntrenamiento==0" style=" font-size: 15px;margin-top: 10px;">
+                    No tiene simulaciones realizadas en modo entrenamiento.
+                  </div>
                 </div>
                 <br />
                 <div style="justify-content: center;display:flex">
@@ -220,9 +225,9 @@
                       <span class="subtitulo" style="margin-bottom:15px">Dominios con mejor puntaje:</span><br />
                     </div>
                       <div *ngIf="ResultadosPorDominio!=undefined">
-                        <div *ngIf="ResultadosPorDominio.domino1!=0" class="row" style="margin-bottom: 14px;">
+                        <div *ngIf="ResultadosPorDominio.dominio1!=0" class="row" style="margin-bottom: 14px;">
                           <div class="col-11" style="top:8px;">
-                              <mat-progress-bar mode="determinate" style="background-color: green;"
+                              <mat-progress-bar mode="determinate" style="height: 10px;"
                                 [value]="ResultadosPorDominio.dominio1">
                               </mat-progress-bar>
                               <p><b style="color:#786565">Dominio 1:</b> <span>Diseñar arquitecturas resistentes</span></p>
@@ -231,9 +236,9 @@
                               <h5 style="color: #0684f2; white-space: nowrap; font-weight: 800 ">{{ResultadosPorDominio.dominio1}}%</h5>
                           </div>
                         </div>
-                        <div *ngIf="ResultadosPorDominio.domino2!=0" class="row" style="margin-bottom: 14px;">
+                        <div *ngIf="ResultadosPorDominio.dominio2!=0" class="row" style="margin-bottom: 14px;">
                           <div class="col-11" style="top:8px;">
-                            <mat-progress-bar mode="determinate" style="background-color: green;"
+                            <mat-progress-bar mode="determinate" style="height: 10px;"
                             [value]="ResultadosPorDominio.dominio2">
                           </mat-progress-bar>
                               <p><b style="color:#786565">Dominio 2:</b> <span>Diseñar arquitecturas resistentes</span></p>
@@ -242,9 +247,9 @@
                               <h5 style="color: #0684f2; white-space: nowrap; font-weight: 800 ">{{ResultadosPorDominio.dominio2}}%</h5>
                           </div>
                         </div>
-                        <div *ngIf="ResultadosPorDominio.domino3!=0" class="row" style="margin-bottom: 14px;">
+                        <div *ngIf="ResultadosPorDominio.dominio3!=0" class="row" style="margin-bottom: 14px;">
                           <div class="col-11" style="top:8px;">
-                            <mat-progress-bar mode="determinate" style="background-color: green;"
+                            <mat-progress-bar mode="determinate" style="height: 10px;"
                             [value]="ResultadosPorDominio.dominio3">
                           </mat-progress-bar>
                               <p><b style="color:#786565">Dominio 3:</b> <span>Diseñar arquitecturas resistentes</span></p>
@@ -253,9 +258,9 @@
                               <h5 style="color: #0684f2; white-space: nowrap; font-weight: 800 ">{{ResultadosPorDominio.dominio3}}%</h5>
                           </div>
                         </div>
-                        <div *ngIf="ResultadosPorDominio.domino4!=0" class="row" style="margin-bottom: 14px;">
+                        <div *ngIf="ResultadosPorDominio.dominio4!=0" class="row" style="margin-bottom: 14px;">
                           <div class="col-11" style="top:8px;">
-                            <mat-progress-bar mode="determinate" style="background-color: green;"
+                            <mat-progress-bar mode="determinate" style="height: 10px;"
                             [value]="ResultadosPorDominio.dominio4">
                           </mat-progress-bar>
                               <p><b style="color:#786565">Dominio 4:</b> <span>Diseñar arquitecturas resistentes</span></p>
@@ -271,7 +276,12 @@
                           Aún no ha realizado ninguna sesión de estudio
                         </div>
                       </div>
-
+                      <div *ngIf="ResultadosPorDominio.dominio1==0 && ResultadosPorDominio.dominio2==0 &&
+                        ResultadosPorDominio.dominio3==0 && ResultadosPorDominio.dominio4==0">
+                      <div style=" font-size: 15px;margin-top: 10px;">
+                       No tiene simulaciones realizadas en modo estudio.
+                      </div>
+            </div>
                     <br />
                     <div style="justify-content: center;display:flex">
                       <app-default-button  [confs]="{color:'primary',titulo:'Crea una simulación de estudio'}"

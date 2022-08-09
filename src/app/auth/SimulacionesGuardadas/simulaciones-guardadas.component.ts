@@ -24,14 +24,32 @@ export class SimulacionesGuardadasComponent implements OnInit {
     },
   ];
   public SimulacionesIncompletas:any
+  public ContExamenIncompleto=0;
+  public ContEntrenamientoIncompleto=0;
+  public ContEstudioIncompleto=0;
   ngOnInit(): void {
     this.ListaExamenesIncompletos()
   }
   ListaExamenesIncompletos(){
+    this.ContExamenIncompleto=0;
+    this.ContEntrenamientoIncompleto=0;
+    this.ContEstudioIncompleto=0;
     this._ExamenService.ListaExamenesIncompletos().subscribe({
       next:(x)=>{
-        console.log(x)
         this.SimulacionesIncompletas=x
+        if(x!=undefined){
+          this.SimulacionesIncompletas.forEach((y:any)=>{
+            if(y.idSimuladorAwsModo==1){
+              this.ContEstudioIncompleto=this.ContEstudioIncompleto+1
+            }
+            else if(y.idSimuladorAwsModo==2){
+              this.ContEntrenamientoIncompleto=this.ContEntrenamientoIncompleto+1
+            }
+            else{
+              this.ContExamenIncompleto=this.ContExamenIncompleto+1
+            }
+          })
+        }
       }
     })
   }

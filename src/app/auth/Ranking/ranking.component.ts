@@ -28,10 +28,8 @@ export class RankingComponent implements OnInit {
     this.ObtenerListaRankingExamenPorIntento(1)
   }
   ObtenerListaRankingExamenPorIntento(Intento:number){
-    console.log(Intento)
     this._ExamenService.ObtenerListaRankingExamenPorIntento(Intento).subscribe({
       next:(x)=>{
-        console.log(x);
         this.DatoRanking=x
       }
     })

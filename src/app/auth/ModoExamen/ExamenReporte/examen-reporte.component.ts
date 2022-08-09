@@ -47,9 +47,7 @@ export class ExamenReporteComponent implements OnInit {
   ObtenerExamenReporteResultadosPorId(){
     this._ExamenService.ObtenerExamenReporteResultadosPorId(this.IdExamen).subscribe({
       next:(x)=>{
-        console.log(x)
         this.ExamenResultado=x.dominioResultado;
-        console.log(this.ExamenResultado)
         this.Examen=x.examen;
         this.NombreExamen=x.examen.nombreExamen;
         this.TiempoTotalEstudio=x.examen.tiempo;

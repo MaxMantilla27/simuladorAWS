@@ -79,7 +79,6 @@ export class HeaderComponent implements OnInit {
   cerrarSesion() {
     this._SessionStorageService.DeleteToken();
     this._HelperService.enviarDatoCuenta(this.DatoObservable);
-    console.log(this.DatoObservable);
     this._router.navigate(['/Account/Login']);
   }
 }

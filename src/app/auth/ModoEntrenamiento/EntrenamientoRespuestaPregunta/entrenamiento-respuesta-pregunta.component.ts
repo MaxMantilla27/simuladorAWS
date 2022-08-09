@@ -42,7 +42,6 @@ export class EntrenamientoRespuestaPreguntaComponent implements OnInit {
   ObtenerRespuestaExamenDetallePreguntaPorId(){
     this._ExamenService.ObtenerRespuestaExamenDetallePreguntaPorId(this.IdExamen).subscribe({
       next:(x)=>{
-        console.log(x)
         this.DatosExamen=x;
         this.ListaPreguntas=x.pregunta
         this.CantidadTotalPreguntas=x.length;

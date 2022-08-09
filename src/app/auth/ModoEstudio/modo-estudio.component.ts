@@ -51,7 +51,9 @@ export class ModoEstudioComponent implements OnInit {
   public HoraMostrar='';
   public MinutoMostrar='';
   public SimulacionesIncompletas:any;
+  public ContSimulacionesIncompletas=0;
   public SimulacionesCompletadas:any;
+  public ContSimulacionesCompletadas=0;
   public ResultadosPorDominio:any;
   ngOnInit(): void {
     this.ListaDominioCombo();
@@ -68,10 +70,8 @@ export class ModoEstudioComponent implements OnInit {
       this.RegistrarExamenEnvio.nombreExamen=this.userForm.get('NombreSimulacion')?.value;
       this.RegistrarExamenEnvio.tiempo=0,
       this.RegistrarExamenEnvio.idSimuladorAwsDominio=this.DominioSeleccionado;
-      console.log(this.RegistrarExamenEnvio)
       this._ExamenService.Registrar(this.RegistrarExamenEnvio).subscribe({
         next:(x)=>{
-          console.log(x)
           this.IdExamen=x.id
           this._router.navigate(['/ModoEstudio/EstudioPregunta/'+this.IdExamen]);
         }
@@ -91,7 +91,6 @@ export class ModoEstudioComponent implements OnInit {
     this._ExamenService.ListaExamenesPorModo(1).subscribe({
       next:(x)=>{
         this.ListaEstudio=x
-        console.log(this.ListaEstudio)
         this.CantMEstudio=x.length;
         this.ListaEstudio.forEach((x:any)=>{
           this.TiempoTotalEstudio=this.TiempoTotalEstudio+x.tiempo;
@@ -114,16 +113,16 @@ export class ModoEstudioComponent implements OnInit {
   ListaExamenesIncompletos(){
     this._ExamenService.ListaExamenesIncompletos().subscribe({
       next:(x)=>{
-        console.log(x)
-        this.SimulacionesIncompletas=x
+        this.SimulacionesIncompletas=x;
+        this.ContSimulacionesIncompletas=x.length;
       }
     })
   }
   ListaExamenesConcluidos(){
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
-        console.log(x)
-        this.SimulacionesCompletadas=x
+        this.SimulacionesCompletadas=x;
+        this.ContSimulacionesCompletadas=x.length;
       }
     })
   }

@@ -26,14 +26,29 @@ export class ResultadosSimulacionesComponent implements OnInit {
     },
   ];
   public SimulacionesCompletadas:any
+  public ContExamenCompleto=0;
+  public ContEntrenamientoCompleto=0;
+  public ContEstudioCompleto=0;
   ngOnInit(): void {
     this.ListaExamenesConcluidos()
   }
   ListaExamenesConcluidos(){
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
-        console.log(x)
         this.SimulacionesCompletadas=x
+        if(x!=undefined){
+          this.SimulacionesCompletadas.forEach((y:any)=>{
+            if(y.idSimuladorAwsModo==1){
+              this.ContEstudioCompleto=this.ContEstudioCompleto+1
+            }
+            else if(y.idSimuladorAwsModo==2){
+              this.ContEntrenamientoCompleto=this.ContEntrenamientoCompleto+1
+            }
+            else{
+              this.ContExamenCompleto=this.ContExamenCompleto+1
+            }
+          })
+        }
       }
     })
   }

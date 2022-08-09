@@ -46,4 +46,11 @@
   position: relative;
   margin: 20px auto;
 }
+::ng-deep .mat-progress-bar-fill::after {
+  background: #00C356;
+}
+::ng-deep .mat-progress-bar {
+  border-radius: 10px;
+}
+
 

@@ -47,7 +47,9 @@ export class ModoEntrenamientoComponent implements OnInit {
   public HoraMostrar='';
   public MinutoMostrar='';
   public SimulacionesIncompletas:any;
-  public SimulacionesCompletadas:any
+  public ContSimulacionesIncompletas=0;
+  public SimulacionesCompletadas:any;
+  public ContSimulacionesCompletadas=0;
   public PromedioDominio=0
   public ContEntrenamiento=0;
   public Promedio=0;
@@ -64,7 +66,6 @@ export class ModoEntrenamientoComponent implements OnInit {
       this.RegistrarExamenEnvio.nombreExamen=this.userForm.get('NombreSimulacion')?.value;
       this.RegistrarExamenEnvio.tiempo=0,
       this.RegistrarExamenEnvio.idSimuladorAwsDominio=0
-      console.log(this.RegistrarExamenEnvio)
       this._ExamenService.Registrar(this.RegistrarExamenEnvio).subscribe({
         next:(x)=>{
           this.IdExamen=x.id
@@ -78,7 +79,6 @@ export class ModoEntrenamientoComponent implements OnInit {
     this._ExamenService.ListaExamenesPorModo(2).subscribe({
       next:(x)=>{
         this.ListaEntrenamiento=x
-        console.log(this.ListaEntrenamiento)
         this.CantMEntrenamiento=x.length;
         this.ListaEntrenamiento.forEach((x:any)=>{
           this.TiempoTotalEstudio=this.TiempoTotalEstudio+x.tiempo;
@@ -100,7 +100,8 @@ export class ModoEntrenamientoComponent implements OnInit {
   ListaExamenesIncompletos(){
     this._ExamenService.ListaExamenesIncompletos().subscribe({
       next:(x)=>{
-        this.SimulacionesIncompletas=x
+        this.SimulacionesIncompletas=x;
+        this.ContSimulacionesIncompletas=x.length;
       }
     })
   }
@@ -110,12 +111,12 @@ export class ModoEntrenamientoComponent implements OnInit {
     this.Promedio=0;
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
+        this.ContSimulacionesCompletadas=x.length;
         this.SimulacionesCompletadas=x;
         this.SimulacionesCompletadas.forEach((y:any)=>{
           if(y.idEstadoExamen==3 && y.idSimuladorAwsModo==2){
             this.ContEntrenamiento=this.ContEntrenamiento+1;
             this.PromedioDominio=this.PromedioDominio+y.desempenio;
-            console.log(y.desempenio)
           }
 
         })
@@ -132,7 +133,6 @@ export class ModoEntrenamientoComponent implements OnInit {
   ObtenerPromedioDominioPorModo(){
     this._ExamenService.ObtenerPromedioDominioPorModo(2).subscribe({
       next:(x)=>{
-        console.log(x)
       }
     })
   }

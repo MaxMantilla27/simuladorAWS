@@ -54,21 +54,17 @@ export class LoginComponent implements OnInit {
     if(this.userForm.valid){
       this.CuentaLogin.username=this.userForm.get('Email')?.value;
       this.CuentaLogin.password=this.userForm.get('Password')?.value;
-      console.log(this.CuentaLogin)
       this._AspNetUsers.Authenticate(this.CuentaLogin).subscribe({
       next: x => {
-        console.log(x)
         this.statuscharge=false
           this._SessionStorageService.SetToken(x.token)
           this.DatoObservable.datoAvatar=true
           this.DatoObservable.datoContenido=true
           this._HelperService.enviarDatoCuenta(this.DatoObservable)
-          console.log(this.DatoObservable);
           this.router.navigate(['']);
       },
       error:e=>{
         this.statuscharge=false
-        console.log(e)
         this.errorLogin=e.error.excepcion.descripcionGeneral;
         setTimeout(()=>{
           this.errorLogin='';

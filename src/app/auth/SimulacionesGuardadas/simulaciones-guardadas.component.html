@@ -19,12 +19,12 @@
   <div class="card" style="padding:30px;border-radius:20px;">
     <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
       <div class="float-left">
-        <div class="subtitulo" style="text-align: left"><img src="../../../assets/iconos/ModoExamenSelect.svg" style="height: 30px;" />
+        <div class="subtitulo" style="text-align: left;border-bottom: 1px solid #E4E4E4"><img src="../../../assets/iconos/ModoExamenSelect.svg" style="height: 30px;" />
           Modo Examen
         </div>
       </div>
     </div>
-    <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+    <div *ngIf="ContExamenIncompleto!=0" class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
       <ng-container *ngFor="let item of SimulacionesIncompletas">
         <div  *ngIf="item.idSimuladorAwsModo==3" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
           <div class="row" style="margin-top: 20px;margin-left: 0px;">
@@ -43,11 +43,14 @@
               </div>
             </div>
           </div>
-          <mat-progress-bar mode="determinate" style="background-color: green;"
+          <mat-progress-bar mode="determinate" style="height: 10px;"
             [value]="(item.preguntasRespondidas/(item.preguntasRespondidas+item.preguntasPendientes))*100">
           </mat-progress-bar>
         </div>
       </ng-container>
+    </div>
+    <div  *ngIf="ContExamenIncompleto==0" style=" font-size: 15px;margin-top: 10px;margin-left: 15px;">
+      No tiene simulaciones guardadas en modo examen.
     </div>
   </div>
   <br>
@@ -55,12 +58,12 @@
   <div class="card" style="padding:30px;border-radius:20px;">
     <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
       <div class="float-left">
-        <div class="subtitulo" style="text-align: left"><img src="../../../assets/iconos/ModoEntrenamientoSelect.svg" style="height: 30px;" />
+        <div class="subtitulo" style="text-align: left;border-bottom: 1px solid #E4E4E4"><img src="../../../assets/iconos/ModoEntrenamientoSelect.svg" style="height: 30px;" />
           Modo entrenamiento
         </div>
       </div>
     </div>
-    <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+    <div *ngIf="ContEntrenamientoIncompleto!=0" class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
       <ng-container *ngFor="let item of SimulacionesIncompletas">
         <div *ngIf="item.idSimuladorAwsModo==2" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;" >
           <div class="row" style="margin-top: 20px;margin-left: 0px;">
@@ -85,18 +88,21 @@
         </div>
       </ng-container>
     </div>
+    <div  *ngIf="ContEntrenamientoIncompleto==0" style=" font-size: 15px;margin-top: 10px;margin-left: 15px;">
+      No tiene simulaciones guardadas en modo entrenamiento.
+    </div>
   </div>
   <br>
   <!-- Simulaciones guardadas Modo Estudio -->
   <div class="card" style="padding:30px;border-radius:20px;">
     <div class="card-body" style="border-radius: 20px 20px 0px 0px; padding-left: 15px;">
       <div class="float-left">
-        <div class="subtitulo" style="text-align: left"><img src="../../../assets/iconos/ModoEstudioSelect.svg" style="height: 30px;" />
+        <div class="subtitulo" style="text-align: left;border-bottom: 1px solid #E4E4E4"><img src="../../../assets/iconos/ModoEstudioSelect.svg" style="height: 30px;" />
           Modo estudio
         </div>
       </div>
     </div>
-    <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
+    <div *ngIf="ContEstudioIncompleto!=0" class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
       <ng-container *ngFor="let item of SimulacionesIncompletas">
         <div  *ngIf="item.idSimuladorAwsModo==1" class="container" style="border-top: 1px solid #E4E4E4;margin-bottom: 20px;">
           <div class="row" style="margin-top: 20px;margin-left: 0px;">
@@ -120,6 +126,9 @@
           </mat-progress-bar>
         </div>
       </ng-container>
+    </div>
+    <div  *ngIf="ContEstudioIncompleto==0" style=" font-size: 15px;margin-top: 10px;margin-left: 15px;">
+      No tiene simulaciones guardadas en modo estudio.
     </div>
   </div>
 

@@ -72,7 +72,7 @@
               <div id="Alternativas">
                 <ng-container *ngFor="let Respuesta of Preguntas.pregunta.respuesta; let j=index">
                   <div *ngIf="Respuesta.respuestaSelecionada==1 && Preguntas.puntaje==0" class="RespuestaCorrecta">
-                    <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;">
+                    <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;margin-right: 5%;">
                       <div>
                       <i class="material-icons radioFormRpta" [style]="{'color':Respuesta.respuestaSelecionada==1?'green':'#ededed'}">
                       <ng-container *ngIf="Respuesta.respuestaSelecionada==1">check_box</ng-container>
@@ -81,12 +81,12 @@
                       </div>
                       <div >
                         {{Respuesta.respuesta}}
-                        <img src="../../../../assets/iconos/New.svg" style="height: 20px;" >
+                        <img src="../../../../assets/iconos/DesaprobadoMarcado.svg" style="height: 20px;" >
                       </div>
                     </div>
                   </div>
                   <div *ngIf="Respuesta.respuestaSelecionada==1 && Preguntas.puntaje==1" class="RespuestaCorrecta">
-                    <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;">
+                    <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;margin-right: 5%;">
                       <div>
                       <i class="material-icons radioFormRpta" [style]="{'color':Respuesta.respuestaSelecionada==1?'green':'#ededed'}">
                       <ng-container *ngIf="Respuesta.respuestaSelecionada==1">check_box</ng-container>
@@ -95,7 +95,7 @@
                       </div>
                       <div >
                         {{Respuesta.respuesta}}
-                        <img src="../../../../assets/iconos/check.svg" style="height: 20px;" >
+                        <img src="../../../../assets/iconos/CheckMarcado.svg" style="height: 20px;" >
                       </div>
                     </div>
                   </div>

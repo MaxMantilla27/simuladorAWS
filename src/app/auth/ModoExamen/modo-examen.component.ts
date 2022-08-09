@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ExamenIntentoDTO, RegistroAwsExamenDTO } from 'src/app/Models/ExamenDTO';
@@ -47,7 +47,9 @@ export class ModoExamenComponent implements OnInit {
   public HoraMostrar='';
   public MinutoMostrar='';
   public SimulacionesIncompletas:any;
-  public SimulacionesCompletadas:any
+  public ContSimulacionesIncompletas=0;
+  public SimulacionesCompletadas:any;
+  public ContSimulacionesCompletadas=0;
   public PromedioDominio=0
   public ContEntrenamiento=0;
   public Promedio=0;
@@ -66,7 +68,20 @@ export class ModoExamenComponent implements OnInit {
     Intento9:0,
     Intento10:0
   }
+  public ExamenPorIntentoUsuario:ExamenIntentoDTO={
+    Intento1:0,
+    Intento2:0,
+    Intento3:0,
+    Intento4:0,
+    Intento5:0,
+    Intento6:0,
+    Intento7:0,
+    Intento8:0,
+    Intento9:0,
+    Intento10:0
+  }
   public DatosIntento=false;
+  public DatosIntentoUsuario=false;
   ngOnInit(): void {
     this.ListaExamenesPorModo();
     this.ListaExamenesIncompletos();
@@ -80,7 +95,6 @@ export class ModoExamenComponent implements OnInit {
       this.RegistrarExamenEnvio.nombreExamen=this.userForm.get('NombreSimulacion')?.value;
       this.RegistrarExamenEnvio.tiempo=0,
       this.RegistrarExamenEnvio.idSimuladorAwsDominio=0
-      console.log(this.RegistrarExamenEnvio)
       this._ExamenService.Registrar(this.RegistrarExamenEnvio).subscribe({
         next:(x)=>{
           this.IdExamen=x.id
@@ -105,12 +119,10 @@ export class ModoExamenComponent implements OnInit {
         this.SimulacionesInconclusas=this.CantMExamen-this.SimulacionesTotales;
       },
       complete: () => {
-        console.log(this.TiempoTotalEstudio)
         this.Hora = Math.floor(this.TiempoTotalEstudio / 3600);
         this.HoraMostrar = (this.Hora < 10) ? '0' + this.Hora : this.Hora.toString();
         this.Minuto = Math.floor((this.TiempoTotalEstudio / 60) % 60);
         this.MinutoMostrar = (this.Minuto < 10) ? '0' + this.Minuto : this.Minuto.toString();
-        console.log(this.MinutoMostrar)
       }
     });
 
@@ -119,8 +131,9 @@ export class ModoExamenComponent implements OnInit {
   ListaExamenesIncompletos(){
     this._ExamenService.ListaExamenesIncompletos().subscribe({
       next:(x)=>{
-        console.log(x)
-        this.SimulacionesIncompletas=x
+        this.SimulacionesIncompletas=x;
+        this.ContSimulacionesIncompletas=x.length;
+
       }
     })
   }
@@ -130,45 +143,81 @@ export class ModoExamenComponent implements OnInit {
     this.Promedio=0;
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
-        this.SimulacionesCompletadas=x;
-        this.SimulacionesCompletadas.forEach((y:any)=>{
+        this.ContSimulacionesCompletadas=x.length;
+        if(x!=undefined){
+          this.SimulacionesCompletadas=x;
+          this.SimulacionesCompletadas.forEach((y:any)=>{
           if(y.idEstadoExamen==3 && y.idSimuladorAwsModo==3){
             this.ContEntrenamiento=this.ContEntrenamiento+1;
             this.PromedioDominio=this.PromedioDominio+y.desempenio;
-            console.log(y.desempenio)
             if(y.desempenio>=72){
               this.IntentosAprobados=this.IntentosAprobados+1
+            }
+            if(y.numeroIntento==1){
+              this.ExamenPorIntentoUsuario.Intento1=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==2){
+              this.ExamenPorIntentoUsuario.Intento2=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==3){
+              this.ExamenPorIntentoUsuario.Intento3=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==4){
+              this.ExamenPorIntentoUsuario.Intento4=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==5){
+              this.ExamenPorIntentoUsuario.Intento5=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==6){
+              this.ExamenPorIntentoUsuario.Intento6=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==7){
+              this.ExamenPorIntentoUsuario.Intento7=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==8){
+              this.ExamenPorIntentoUsuario.Intento8=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==9){
+              this.ExamenPorIntentoUsuario.Intento9=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
+            }
+            if(y.numeroIntento==10){
+              this.ExamenPorIntentoUsuario.Intento10=Math.floor(y.desempenio)
+              this.DatosIntentoUsuario=true;
             }
           }
         })
         this.Promedio=Math.floor(this.PromedioDominio/this.ContEntrenamiento);
         var aux=(this.IntentosAprobados/this.ContEntrenamiento)*100
-          console.log(aux)
           this.PorcentajeIntentosAprobados=Math.floor(aux)
         if(this.Promedio>=0){
           this.Promedio=this.Promedio;
         }
+        else if(this.PorcentajeIntentosAprobados>=0){
+          var aux=(this.IntentosAprobados/this.ContEntrenamiento)*100
+          this.PorcentajeIntentosAprobados=Math.floor(aux)
+        }
         else{
           this.Promedio=0;
           this.PorcentajeIntentosAprobados=0
-
         }
-        if(this.PorcentajeIntentosAprobados>=0){
-          var aux=(this.IntentosAprobados/this.ContEntrenamiento)*100
-          console.log(aux)
-          this.PorcentajeIntentosAprobados=Math.floor(aux)
         }
-
-
       }
     })
   }
   ObtenerPromedioIntento(){
     this._ExamenService.ObtenerPromedioIntento().subscribe({
       next:(x)=>{
-        console.log(x)
         this.ExamenIntento=x
-        this.ExamenIntento.forEach((y:any)=>{
+          this.ExamenIntento.forEach((y:any)=>{
           if(y.numeroIntento==1){
             this.ExamenPorIntento.Intento1=Math.floor(y.desempenio)
             this.DatosIntento=true;

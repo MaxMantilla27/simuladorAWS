@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -23,13 +23,22 @@ export class DonaPuntosComponent implements OnInit {
           '#00C356',
           '#E8E8E5'
       ],
-    }]
+      hoverBackgroundColor:[
+        '#00C356',
+        '#E8E8E5'
+      ],
+      hoverBorderColor:[
+        '#00C356',
+        '#E8E8E5'
+      ]
+    }],
+
   };
   public doughnutChartType: ChartType = 'doughnut';
   public tresDigitos=false;
   public dosDigitos=false;
   public unDigito=false;
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if(this.Puntos>=0){
       this.Puntos=Math.floor(this.Puntos)
       if(this.Puntos==100){
@@ -41,12 +50,14 @@ export class DonaPuntosComponent implements OnInit {
       else{
         this.unDigito=true;
       }
+      this.ValoresChart()
     }
-    this.ValoresChart()
-
-    if(this.Puntos==0){
+    else{
       this.ValoresChartInicio()
     }
+  }
+
+  ngOnInit(): void {
   }
   ValoresChart(){
     //Opciones
@@ -74,6 +85,14 @@ export class DonaPuntosComponent implements OnInit {
           '#00C356',
           '#E8E8E5'
         ],
+        hoverBackgroundColor:[
+          '#00C356',
+          '#E8E8E5'
+        ],
+        hoverBorderColor:[
+          '#00C356',
+          '#E8E8E5'
+        ]
       }]
     }
   }
@@ -104,6 +123,14 @@ export class DonaPuntosComponent implements OnInit {
           '#00C356',
           '#E8E8E5'
         ],
+        hoverBackgroundColor:[
+          '#00C356',
+          '#E8E8E5'
+        ],
+        hoverBorderColor:[
+          '#00C356',
+          '#E8E8E5'
+        ]
       }]
     }
   }

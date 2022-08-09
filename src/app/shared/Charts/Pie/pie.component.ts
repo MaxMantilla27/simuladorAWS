@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
@@ -32,14 +32,15 @@ export class PieComponent implements OnInit {
   };
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [ DatalabelsPlugin ];
-
-  ngOnInit(): void {
-    if(this.Puntos!=0){
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.Puntos>=0){
       this.ValoresChart()
     }
-    if(this.Puntos==0){
+    else{
       this.ValoresChartInicio()
     }
+  }
+  ngOnInit(): void {
   }
 
   ValoresChart(){
@@ -74,6 +75,14 @@ export class PieComponent implements OnInit {
         '#E8E8E5'
       ],
       borderWidth: 1,
+      hoverBackgroundColor:[
+        '#00C356',
+        '#E8E8E5'
+      ],
+      hoverBorderColor:[
+        '#00C356',
+        '#E8E8E5'
+      ]
       }]
     }
   };

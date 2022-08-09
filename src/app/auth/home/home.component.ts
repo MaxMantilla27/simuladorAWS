@@ -8,12 +8,12 @@ import { RegistroAwsExamenDTO } from 'src/app/Models/ExamenDTO';
 import { AvatarService } from 'src/app/shared/Services/Avatar/avatar.service';
 import { ExamenService } from 'src/app/shared/Services/Examen/examen.service';
 import { SessionStorageService } from 'src/app/shared/Services/session-storage.service';
+import { ResultadoExamenPorDominioDTO } from 'src/app/Models/DominioDTO';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 
 })
 export class HomeComponent implements OnInit {
@@ -83,7 +83,12 @@ export class HomeComponent implements OnInit {
   public ResultadoDominio3=0;
   public ResultadoDominio4=0;
   public ContadorEntrenamiento=0;
-  public ResultadosPorDominio:any;
+  public ResultadosPorDominio:ResultadoExamenPorDominioDTO={
+    dominio1:0,
+    dominio2:0,
+    dominio3:0,
+    dominio4:0
+  }
 
   ngOnInit(): void {
 
@@ -108,14 +113,15 @@ export class HomeComponent implements OnInit {
   ObtenerMejorExamenPorUsuario(){
     this._ExamenService.ObtenerMejorExamenPorUsuario(this.MejorExamenEnvio).subscribe({
       next:(x)=>{
-        console.log(x)
-        this.DominioResultado=x.dominioResultado;
+        if(x!=null){
+          this.DominioResultado=x.dominioResultado;
         this.ResultadoDominio1=Math.floor(x.dominioResultado[0].desempenio);
         this.ResultadoDominio2=Math.floor(x.dominioResultado[1].desempenio);
         this.ResultadoDominio3=Math.floor(x.dominioResultado[2].desempenio);
         this.ResultadoDominio4=Math.floor(x.dominioResultado[3].desempenio);
         this.Examen=x.examen;
         this.Puntos=Math.floor(x.examen.desempenio)
+        }
       },
       error:(e)=>{
         this.ExamenesCompletados=0
@@ -126,11 +132,9 @@ export class HomeComponent implements OnInit {
   ObtenerNivelUsuario(){
     this._ExamenService.ObtenerNivelUsuario().subscribe({
       next:(x)=>{
-        console.log(x)
         this.NivelUsuario=x.rango.nivel;
         this.SiguienteNivelUsuario=x.rango.siguienteNivel;
         this.PuntosNivel = x.puntosNivel;
-        console.log(this.PuntosNivel)
       }
     })
   }
@@ -139,20 +143,17 @@ export class HomeComponent implements OnInit {
       next:(x)=>{
         this.ListaEstudio=x
         this.CantMEstudio=x.length;
-        console.log(this.ListaEstudio)
       }
     });
     this._ExamenService.ListaExamenesPorModo(2).subscribe({
       next:(x)=>{
         this.ListaEntrenamiento=x
-        console.log(this.ListaEntrenamiento)
         this.CantMEntrenamiento=x.length;
       }
     });
     this._ExamenService.ListaExamenesPorModo(3).subscribe({
       next:(x)=>{
         this.ListaExamen=x
-        console.log(this.ListaExamen)
         this.ListaExamen.forEach((x:any)=>{
           if(x.estadoExamen=="Finalizado")
           this.ExamenesCompletados=this.ExamenesCompletados+1;

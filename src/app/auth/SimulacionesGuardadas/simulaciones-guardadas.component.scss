@@ -9,3 +9,9 @@
   color: #878787!important;
   font-weight: 500!important;
 }
+::ng-deep .mat-progress-bar-fill::after {
+  background: #00C356;
+}
+::ng-deep .mat-progress-bar {
+  border-radius: 10px;
+}
