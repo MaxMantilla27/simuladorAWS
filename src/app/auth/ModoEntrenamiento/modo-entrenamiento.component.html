@@ -174,7 +174,7 @@
                       <b>Fecha ultimo cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
                     </div>
                     <div>
-                      <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasPendientes}}
+                      <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}
                     </div>
                   </div>
                   <div class="col-6">
