@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url_api:'http://simuladoraws-servicio.bsginstitute.com/api/',
+  url_api:'https://simuladoraws-servicio.bsginstitute.com/api/',
 };
