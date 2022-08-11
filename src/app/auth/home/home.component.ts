@@ -133,7 +133,6 @@ export class HomeComponent implements OnInit {
   ObtenerNivelUsuario(){
     this._ExamenService.ObtenerNivelUsuario().subscribe({
       next:(x)=>{
-        console.log(x)
         this.NivelUsuario=x.rango.nivel;
         this.SiguienteNivelUsuario=x.rango.siguienteNivel;
         this.PuntosNivel = x.puntosNivel;
@@ -170,7 +169,6 @@ export class HomeComponent implements OnInit {
   ObtenerPromedioDominioPorModo(){
     this._ExamenService.ObtenerPromedioDominioPorModo(1).subscribe({
       next:(x)=>{
-        console.log(x)
         if(x!=null){
           this.ResultadosPorDominio=x
         }

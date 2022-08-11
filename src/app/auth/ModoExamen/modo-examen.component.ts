@@ -149,7 +149,6 @@ export class ModoExamenComponent implements OnInit {
     this.Promedio=0;
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
-        console.log(x)
         if(x!=undefined){
           this.SimulacionesCompletadas=x;
           this.SimulacionesCompletadas.forEach((y:any)=>{
