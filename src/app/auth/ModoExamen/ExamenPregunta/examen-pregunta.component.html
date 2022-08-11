@@ -39,8 +39,8 @@
           <div class="col-4 col-sm-3 ">
               <div class="card" style="border-radius: 20px; background: #0aaff1;border:solid 0px">
                   <div class="card-body" style="text-align: center; padding: 10px 0px;">
-                      <b style="color: white; font-size: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa fa-play" style="font-size: 5px;margin-right: 5px;"></i> TIEMPO UTILIZADO</b>
-                      <div style=" color: white; font-size: 90px; font-weight: 600; margin: -10px 0px;" id="TiempoMinuto">{{MinutoMostrar}}</div>
+                      <b style="color: white; font-size: 12px; display: flex; align-items: center; justify-content: center;"><i class="fa fa-play" style="font-size: 5px;margin-right: 5px;"></i> TIEMPO RESTANTE</b>
+                      <div style=" color: white; font-size: 90px; font-weight: 600; margin: -10px 0px;" id="TiempoMinuto">{{MinutoMostrarReversa}}</div>
                       <b style="color: #fff000;">MINUTOS</b>
                   </div>
               </div>
@@ -185,7 +185,7 @@
 </ng-container>
 <ng-container *ngIf="DatosExamen==undefined">
   <div class="container" style="width: 63%;">
-    <div style="padding:0.75rem 1.25rem;width: 100%;height: 375px;">
+    <div style="padding:0.75rem 1.25rem;width: 100%;height: 450px;">
       <div style="margin-top: 100px; display: flex;justify-content: center;">
         <mat-spinner></mat-spinner>
       </div>

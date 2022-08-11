@@ -55,6 +55,7 @@ export class ModoEstudioComponent implements OnInit {
   public SimulacionesCompletadas:any;
   public ContSimulacionesCompletadas=0;
   public ResultadosPorDominio:any;
+  public BotonResgistrar=false;
   ngOnInit(): void {
     this.ListaDominioCombo();
     this.ListaExamenesPorModo();
@@ -64,7 +65,8 @@ export class ModoEstudioComponent implements OnInit {
   }
 
   RegistrarExamen(){
-    if(this.userForm.valid){
+    if(this.userForm.valid && this.DominioSeleccionado!=0){
+      this.BotonResgistrar=true;
       this.RegistrarExamenEnvio.id=0,
       this.RegistrarExamenEnvio.idSimuladorAwsModo=1,
       this.RegistrarExamenEnvio.nombreExamen=this.userForm.get('NombreSimulacion')?.value;
@@ -114,7 +116,11 @@ export class ModoEstudioComponent implements OnInit {
     this._ExamenService.ListaExamenesIncompletos().subscribe({
       next:(x)=>{
         this.SimulacionesIncompletas=x;
-        this.ContSimulacionesIncompletas=x.length;
+        this.SimulacionesIncompletas.forEach((y:any)=>{
+          if(y.idEstadoExamen!=3 && y.idSimuladorAwsModo==1){
+            this.ContSimulacionesIncompletas=x.length;
+          }
+        })
       }
     })
   }
@@ -122,7 +128,11 @@ export class ModoEstudioComponent implements OnInit {
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
         this.SimulacionesCompletadas=x;
-        this.ContSimulacionesCompletadas=x.length;
+        this.SimulacionesCompletadas.forEach((y:any)=>{
+          if(y.idEstadoExamen==3 && y.idSimuladorAwsModo==1){
+            this.ContSimulacionesCompletadas=x.length;
+          }
+        })
       }
     })
   }

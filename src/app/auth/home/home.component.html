@@ -44,21 +44,21 @@
         <div class="row">
           <div class="col-md-4">
             <div>
-              <app-pie [Puntos]="PuntosNivel"></app-pie>
+              <app-pie [Puntos]="PuntosNivel" [TotalPuntos]="TotalPuntos"></app-pie>
               <div style="text-align: center">
-                {{PuntosNivel}} / 100 puntos
+                {{PuntosNivel}} / {{TotalPuntos}} puntos
               </div>
               <div style="color: #af9f9f; font-size: 13px;text-align: center;">Siguiente nivel: <b>{{SiguienteNivelUsuario}}</b></div>
             </div>
           </div>
           <div class="col-md-4">
-            <app-dona  [Puntos]="PuntosNivel"></app-dona>
+            <app-dona  [Puntos]="PuntosNivel" [TotalPuntos]="TotalPuntos"></app-dona>
             <div style="text-align: center">
               Puntaje promedio
             </div>
           </div>
           <div class="col-md-4">
-            <app-dona [Puntos]="PuntosNivel" ></app-dona>
+            <app-dona [Puntos]="PuntosNivel" [TotalPuntos]="TotalPuntos" ></app-dona>
             <div style="text-align: center">
               Puntaje máximo
             </div>

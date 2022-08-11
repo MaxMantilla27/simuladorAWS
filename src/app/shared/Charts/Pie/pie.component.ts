@@ -12,6 +12,7 @@ export class PieComponent implements OnInit {
 
   constructor() { }
 
+  @Input() TotalPuntos=0;
   @Input() Puntos=0;
   // Pie
   public pieChartOptions: ChartConfiguration['options'] = {};
@@ -33,7 +34,7 @@ export class PieComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
   public pieChartPlugins = [ DatalabelsPlugin ];
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.Puntos>=0){
+    if(this.Puntos>=0 && this.TotalPuntos>=0){
       this.ValoresChart()
     }
     else{
@@ -65,7 +66,7 @@ export class PieComponent implements OnInit {
     this.pieChartData={
       labels: ["",""],
       datasets: [ {
-      data:[this.Puntos,100-this.Puntos] ,
+      data:[this.Puntos,this.TotalPuntos-this.Puntos] ,
       backgroundColor: [
         '#00C356',
         '#E8E8E5'

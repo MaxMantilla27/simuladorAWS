@@ -137,7 +137,7 @@ export class EstudioPreguntaComponent implements OnInit {
     this.RegistroEnvioRespuesta.puntaje=0,
     this.RegistroEnvioRespuesta.desempenio=0,
     this.RegistroEnvioRespuesta.percentil=0,
-    this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=this.ListaPreguntas.pregunta.idSimuladorTipoRespuesta,
+    this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta,
     this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
       if(x.respuestaSelecionada==1){
         this.DetalleRespuestaEnvio.idSimuladorAwsPreguntaRespuesta=x.id;
@@ -193,7 +193,7 @@ export class EstudioPreguntaComponent implements OnInit {
     setTimeout(()=>{
       this.Cronometro(TiempoSegundo);
     },1000)
-
+    this.TiempoSegundo=TiempoSegundo;
   }
 
 }

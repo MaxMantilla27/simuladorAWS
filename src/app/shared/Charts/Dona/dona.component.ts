@@ -11,6 +11,7 @@ export class DonaComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   constructor() { }
+  @Input() TotalPuntos=0;
   @Input() Puntos=0;
   public tresDigitos=false;
   public dosDigitos=false;
@@ -20,7 +21,7 @@ export class DonaComponent implements OnInit {
   public doughnutChartData: ChartData<'doughnut',number[]> = {
     labels:["",""],
     datasets: [{
-      data: [ this.Puntos,100-this.Puntos],
+      data: [ this.Puntos,this.TotalPuntos-this.Puntos],
       backgroundColor: [
           '#00C356',
           '#E8E8E5'
@@ -39,7 +40,7 @@ export class DonaComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(this.Puntos>=0){
       this.Puntos=Math.floor(this.Puntos)
-      if(this.Puntos==100){
+      if(this.Puntos>=100){
         this.tresDigitos=true;
       }
       else if(this.Puntos<=99 && this.Puntos>=10){
@@ -78,7 +79,7 @@ export class DonaComponent implements OnInit {
     this.doughnutChartData={
       labels:["",""],
       datasets: [{
-        data: [ this.Puntos,100-this.Puntos],
+        data: [ this.Puntos,this.TotalPuntos-this.Puntos],
         backgroundColor: [
           '#00C356',
           '#E8E8E5'

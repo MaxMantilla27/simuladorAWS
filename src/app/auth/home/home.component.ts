@@ -78,6 +78,7 @@ export class HomeComponent implements OnInit {
   public Examen:any;
   public Puntos=0;
   public PuntosNivel=0;
+  public TotalPuntos=0;
   public ResultadoDominio1=0;
   public ResultadoDominio2=0;
   public ResultadoDominio3=0;
@@ -132,9 +133,11 @@ export class HomeComponent implements OnInit {
   ObtenerNivelUsuario(){
     this._ExamenService.ObtenerNivelUsuario().subscribe({
       next:(x)=>{
+        console.log(x)
         this.NivelUsuario=x.rango.nivel;
         this.SiguienteNivelUsuario=x.rango.siguienteNivel;
         this.PuntosNivel = x.puntosNivel;
+        this.TotalPuntos=x.rango.hasta
       }
     })
   }
@@ -167,7 +170,10 @@ export class HomeComponent implements OnInit {
   ObtenerPromedioDominioPorModo(){
     this._ExamenService.ObtenerPromedioDominioPorModo(1).subscribe({
       next:(x)=>{
-        this.ResultadosPorDominio=x
+        console.log(x)
+        if(x!=null){
+          this.ResultadosPorDominio=x
+        }
       }
     })
   }

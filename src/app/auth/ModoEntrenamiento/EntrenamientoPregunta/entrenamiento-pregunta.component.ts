@@ -121,7 +121,7 @@ export class EntrenamientoPreguntaComponent implements OnInit {
 RegresarMenu(i:number){
   this.Retroalimentacion=false;
   this.EnviarRespuesta(i);
-  this._router.navigate(['/ModoExamen']);
+  this._router.navigate(['/ModoEntrenamiento']);
 }
 EnviarRespuesta(i:number){
   this.RegistroEnvioRespuesta.respuestaDetalle=[],
@@ -190,6 +190,6 @@ EnviarRespuesta(i:number){
     setTimeout(()=>{
       this.Cronometro(TiempoSegundo);
     },1000)
-
+    this.TiempoSegundo=TiempoSegundo;
   }
 }

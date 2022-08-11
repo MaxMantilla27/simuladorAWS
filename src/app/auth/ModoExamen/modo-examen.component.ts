@@ -82,6 +82,8 @@ export class ModoExamenComponent implements OnInit {
   }
   public DatosIntento=false;
   public DatosIntentoUsuario=false;
+  public BotonResgistrar=false;
+
   ngOnInit(): void {
     this.ListaExamenesPorModo();
     this.ListaExamenesIncompletos();
@@ -90,6 +92,7 @@ export class ModoExamenComponent implements OnInit {
   }
   RegistrarExamen(){
     if(this.userForm.valid){
+      this.BotonResgistrar=true;
       this.RegistrarExamenEnvio.id=0,
       this.RegistrarExamenEnvio.idSimuladorAwsModo=3,
       this.RegistrarExamenEnvio.nombreExamen=this.userForm.get('NombreSimulacion')?.value;
@@ -132,8 +135,11 @@ export class ModoExamenComponent implements OnInit {
     this._ExamenService.ListaExamenesIncompletos().subscribe({
       next:(x)=>{
         this.SimulacionesIncompletas=x;
-        this.ContSimulacionesIncompletas=x.length;
-
+        this.SimulacionesIncompletas.forEach((y:any)=>{
+          if(y.idEstadoExamen!=3 && y.idSimuladorAwsModo==3){
+            this.ContSimulacionesIncompletas=x.length;
+          }
+        })
       }
     })
   }
@@ -143,11 +149,12 @@ export class ModoExamenComponent implements OnInit {
     this.Promedio=0;
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
-        this.ContSimulacionesCompletadas=x.length;
+        console.log(x)
         if(x!=undefined){
           this.SimulacionesCompletadas=x;
           this.SimulacionesCompletadas.forEach((y:any)=>{
           if(y.idEstadoExamen==3 && y.idSimuladorAwsModo==3){
+            this.ContSimulacionesCompletadas=x.length;
             this.ContEntrenamiento=this.ContEntrenamiento+1;
             this.PromedioDominio=this.PromedioDominio+y.desempenio;
             if(y.desempenio>=72){
@@ -216,7 +223,8 @@ export class ModoExamenComponent implements OnInit {
   ObtenerPromedioIntento(){
     this._ExamenService.ObtenerPromedioIntento().subscribe({
       next:(x)=>{
-        this.ExamenIntento=x
+        if(x!=null){
+          this.ExamenIntento=x
           this.ExamenIntento.forEach((y:any)=>{
           if(y.numeroIntento==1){
             this.ExamenPorIntento.Intento1=Math.floor(y.desempenio)
@@ -258,6 +266,7 @@ export class ModoExamenComponent implements OnInit {
             this.DatosIntento=true;
           }
         })
+        }
       }
     })
   }

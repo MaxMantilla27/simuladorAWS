@@ -49,6 +49,7 @@ export class ExamenReporteComponent implements OnInit {
       next:(x)=>{
         this.ExamenResultado=x.dominioResultado;
         this.Examen=x.examen;
+        console.log(this.Examen)
         this.NombreExamen=x.examen.nombreExamen;
         this.TiempoTotalEstudio=x.examen.tiempo;
         this.TiempoPromedio=Math.floor(x.examen.tiempo/x.examen.preguntasRespondidas)
@@ -58,8 +59,11 @@ export class ExamenReporteComponent implements OnInit {
 
       },
       complete:()=>{
+        console.log(this.TiempoTotalEstudio)
         this.Minuto = Math.floor(this.TiempoTotalEstudio / 60);
         this.MinutoMostrar = (this.Minuto < 10) ? '0' + this.Minuto : this.Minuto.toString();
+        console.log(this.Minuto)
+        console.log(this.MinutoMostrar)
 
         this.MinutoPromedio = Math.floor((this.TiempoPromedio / 60) % 60);
         this.MinutoPromedioMostrar = (this.MinutoPromedio < 10) ? '0' + this.MinutoPromedio : this.MinutoPromedio.toString();

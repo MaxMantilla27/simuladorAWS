@@ -121,7 +121,7 @@
           </div>
         <div style="justify-content: center;display:flex">
           <app-default-button  [confs]="{color:'primary',titulo:'Comenzar'}"
-        [style]="'width:290px;margin-top: 20px;background:#FF7424'" ></app-default-button>
+        [style]="'width:290px;margin-top: 20px;background:#FF7424'" [disabled]="BotonResgistrar" ></app-default-button>
         </div>
       </form>
     </div>
@@ -136,9 +136,6 @@
             </div>
         </h2>
     </div>
-    <!-- <div *ngIf="DatosIntento==false" style=" font-size: 15px;margin-top: 10px;margin-left: 15px;">
-      Realice simulaciones para obtener sus resultados.
-    </div> -->
     <div class="container" *ngIf="DatosIntento==true && DatosIntentoUsuario==true" style="height: auto;">
       <app-line [ExamenPorIntento]="ExamenPorIntento" [ExamenPorIntentoUsuario]="ExamenPorIntentoUsuario"></app-line>
     </div>

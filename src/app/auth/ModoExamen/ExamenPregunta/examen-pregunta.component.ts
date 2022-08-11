@@ -40,9 +40,10 @@ export class ExamenPreguntaComponent implements OnInit {
   public Hora=0;
   public Minuto=0;
   public Segundo=0;
-  public HoraMostrar='';
-  public MinutoMostrar='';
-  public SegundoMostrar='';
+
+  public TiempoSegundoReversa=0;
+  public MinutoReversa=0;
+  public MinutoMostrarReversa='';
   public RegistroEnvioRespuesta:RegistroAwsExamenRespuestaDTO={
     id:0,
     idSimuladorAwsModo:0,
@@ -87,7 +88,6 @@ export class ExamenPreguntaComponent implements OnInit {
       next:(x)=>{
         this.DatosExamen=x;
         this.ListaPreguntas=x.listaPreguntas;
-        this.ListaPreguntas=x.listaPreguntas;
         if(this.ListaPreguntas.length==0){
           this._router.navigate(['/ModoExamen/ExamenReporte/'+this.IdExamen]);
         }
@@ -97,10 +97,11 @@ export class ExamenPreguntaComponent implements OnInit {
           this.NombreDominio=this.ListaPreguntas[0].dominioNombre;
           this.ContadorAux=this.CantidadTotalPreguntas-1;
           this.TiempoSegundo=x.tiempo;
+          //El modo examen dura 130 minutos
+          this.TiempoSegundoReversa=468000-x.tiempo;
           this.Cronometro(this.TiempoSegundo);
+          this.CronometroReversa(this.TiempoSegundoReversa);
         }
-
-
       }
     })
   }
@@ -127,7 +128,6 @@ RegresarMenu(i:number){
 }
 EnviarRespuesta(i:number){
   this.RegistroEnvioRespuesta.respuestaDetalle=[],
-  /* this.DetalleRespuestaEnvio=undefined, */
   this.RegistroEnvioRespuesta.id=this.IdExamen,
   this.RegistroEnvioRespuesta.idSimuladorAwsModo=3,
   this.RegistroEnvioRespuesta.nombreExamen='',
@@ -137,7 +137,7 @@ EnviarRespuesta(i:number){
   this.RegistroEnvioRespuesta.puntaje=0,
   this.RegistroEnvioRespuesta.desempenio=0,
   this.RegistroEnvioRespuesta.percentil=0,
-  this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=1,
+  this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta,
   this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
     if(x.respuestaSelecionada==1){
       this.DetalleRespuestaEnvio.idSimuladorAwsPreguntaRespuesta=x.id;
@@ -185,14 +185,24 @@ EnviarRespuesta(i:number){
   Cronometro(TiempoSegundo:number){
     TiempoSegundo=TiempoSegundo+1;
     this.Hora = Math.floor(TiempoSegundo / 3600);
-    this.HoraMostrar = (this.Hora < 10) ? '0' + this.Hora : this.Hora.toString();
     this.Minuto = Math.floor((TiempoSegundo / 60) % 60);
-    this.MinutoMostrar = (this.Minuto < 10) ? '0' + this.Minuto : this.Minuto.toString();
     this.Segundo = TiempoSegundo % 60;
-    this.SegundoMostrar = (this.Segundo < 10) ? '0' + this.Segundo : this.Segundo.toString();
     setTimeout(()=>{
       this.Cronometro(TiempoSegundo);
     },1000)
-
+    this.TiempoSegundo=TiempoSegundo;
+  }
+  CronometroReversa(TiempoSegundoReversa:number){
+    if(TiempoSegundoReversa<=0){
+      this._router.navigate(['/ModoExamen/ExamenReporte/'+this.IdExamen]);
+    }
+    else{
+      TiempoSegundoReversa=TiempoSegundoReversa-1;
+      this.MinutoReversa = Math.floor(TiempoSegundoReversa / 3600);
+      this.MinutoMostrarReversa = (this.MinutoReversa < 10) ? '0' + this.MinutoReversa : this.MinutoReversa.toString();
+      setTimeout(()=>{
+        this.CronometroReversa(TiempoSegundoReversa);
+      },1000)
+    }
   }
 }
