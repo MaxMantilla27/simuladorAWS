@@ -15,7 +15,7 @@ export class RankingComponent implements OnInit {
   ) { }
   public migaPan = [
     {
-      titulo: 'Simulador AWS',
+      titulo: 'Simulador DevOps',
       urlWeb: '/',
     },
     {
@@ -24,16 +24,18 @@ export class RankingComponent implements OnInit {
     },
   ];
   public DatoRanking:any
+  public Intento=1;
   ngOnInit(): void {
     this.ObtenerListaRankingExamenPorIntento(1)
+    this.Intento=1;
   }
   ObtenerListaRankingExamenPorIntento(Intento:number){
+
     this._ExamenService.ObtenerListaRankingExamenPorIntento(Intento).subscribe({
       next:(x)=>{
         this.DatoRanking=x
+        this.Intento=Intento
       }
     })
-
   }
-
 }

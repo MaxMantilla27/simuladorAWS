@@ -70,11 +70,10 @@ export class EstudioPreguntaComponent implements OnInit {
     idAspNetUsers:'',
     usuario:''
   }
-  /* public DetalleRespuestaEnvio:any */
   public Retroalimentacion= false;
   public RespuestaCorrecta=false;
   public RespuestaMarcada=false;
-
+  public PausarContador=true;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -99,6 +98,7 @@ export class EstudioPreguntaComponent implements OnInit {
           this.NombreDominio=this.ListaPreguntas[0].dominioNombre;
           this.ContadorAux=this.CantidadTotalPreguntas-1;
           this.TiempoSegundo=x.tiempo;
+          this.PausarContador=false;
           this.Cronometro(this.TiempoSegundo);
         }
       }
@@ -123,6 +123,7 @@ export class EstudioPreguntaComponent implements OnInit {
   }
   RegresarMenu(i:number){
     this.Retroalimentacion=false;
+    this.PausarContador=true;
     this.EnviarRespuesta(i);
     this._router.navigate(['/ModoEstudio']);
   }
@@ -171,6 +172,7 @@ export class EstudioPreguntaComponent implements OnInit {
     this.RespuestaMarcada=false
   }
   SalirRetroalimentacion(){
+    this.PausarContador=true;
     this._router.navigate(['/ModoEstudio']);
     this.ContadorPregunta=this.ContadorPregunta+1;
   }
@@ -183,7 +185,8 @@ export class EstudioPreguntaComponent implements OnInit {
     }
   }
   Cronometro(TiempoSegundo:number){
-    TiempoSegundo=TiempoSegundo+1;
+    if(this.PausarContador==false){
+      TiempoSegundo=TiempoSegundo+1;
     this.Hora = Math.floor(TiempoSegundo / 3600);
     this.HoraMostrar = (this.Hora < 10) ? '0' + this.Hora : this.Hora.toString();
     this.Minuto = Math.floor((TiempoSegundo / 60) % 60);
@@ -194,6 +197,7 @@ export class EstudioPreguntaComponent implements OnInit {
       this.Cronometro(TiempoSegundo);
     },1000)
     this.TiempoSegundo=TiempoSegundo;
+  }
   }
 
 }

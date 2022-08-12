@@ -74,6 +74,7 @@ export class ExamenPreguntaComponent implements OnInit {
   public Retroalimentacion= false;
   public RespuestaCorrecta=false;
   public RespuestaMarcada=false;
+  public PausarContador=true;
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -98,7 +99,8 @@ export class ExamenPreguntaComponent implements OnInit {
           this.ContadorAux=this.CantidadTotalPreguntas-1;
           this.TiempoSegundo=x.tiempo;
           //El modo examen dura 130 minutos
-          this.TiempoSegundoReversa=468000-x.tiempo;
+          this.TiempoSegundoReversa=7800-x.tiempo;
+          this.PausarContador=false;
           this.Cronometro(this.TiempoSegundo);
           this.CronometroReversa(this.TiempoSegundoReversa);
         }
@@ -124,6 +126,7 @@ export class ExamenPreguntaComponent implements OnInit {
 RegresarMenu(i:number){
   this.EnviarRespuesta(i);
   this.Retroalimentacion=false;
+  this.PausarContador=true;
   this._router.navigate(['/ModoExamen']);
 }
 EnviarRespuesta(i:number){
@@ -171,6 +174,7 @@ EnviarRespuesta(i:number){
   this.RespuestaMarcada=false
 }
  SalirRetroalimentacion(){
+  this.PausarContador=true;
     this._router.navigate(['/ModoExamen']);
     this.ContadorPregunta=this.ContadorPregunta+1;
   }
@@ -179,11 +183,13 @@ EnviarRespuesta(i:number){
     this.ContadorPreguntaActual=this.ContadorPreguntaActual+1;
     this.Retroalimentacion=false;
     if (this.ContadorPreguntaActual>this.CantidadTotalPreguntas){
+      this.PausarContador=true;
       this._router.navigate(['/ModoExamen/ExamenReporte/'+this.IdExamen]);
     }
   }
   Cronometro(TiempoSegundo:number){
-    TiempoSegundo=TiempoSegundo+1;
+    if(this.PausarContador==false){
+      TiempoSegundo=TiempoSegundo+1;
     this.Hora = Math.floor(TiempoSegundo / 3600);
     this.Minuto = Math.floor((TiempoSegundo / 60) % 60);
     this.Segundo = TiempoSegundo % 60;
@@ -191,18 +197,24 @@ EnviarRespuesta(i:number){
       this.Cronometro(TiempoSegundo);
     },1000)
     this.TiempoSegundo=TiempoSegundo;
+    }
   }
   CronometroReversa(TiempoSegundoReversa:number){
-    if(TiempoSegundoReversa<=0){
-      this._router.navigate(['/ModoExamen/ExamenReporte/'+this.IdExamen]);
+    if(this.PausarContador==false){
+      if(TiempoSegundoReversa<=0){
+        this._router.navigate(['/ModoExamen/ExamenReporte/'+this.IdExamen]);
+      }
+      else{
+        TiempoSegundoReversa=TiempoSegundoReversa-1;
+      console.log(TiempoSegundoReversa)
+        this.MinutoReversa = Math.floor(TiempoSegundoReversa / 60);
+        console.log(this.MinutoReversa)
+        this.MinutoMostrarReversa = (this.MinutoReversa < 10) ? '0' + this.MinutoReversa : this.MinutoReversa.toString();
+
+        setTimeout(()=>{
+          this.CronometroReversa(TiempoSegundoReversa);
+        },1000)
+      }
     }
-    else{
-      TiempoSegundoReversa=TiempoSegundoReversa-1;
-      this.MinutoReversa = Math.floor(TiempoSegundoReversa / 3600);
-      this.MinutoMostrarReversa = (this.MinutoReversa < 10) ? '0' + this.MinutoReversa : this.MinutoReversa.toString();
-      setTimeout(()=>{
-        this.CronometroReversa(TiempoSegundoReversa);
-      },1000)
     }
-  }
 }
