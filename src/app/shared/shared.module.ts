@@ -27,6 +27,7 @@ import { DonaComponent } from './Charts/Dona/dona.component';
 import { BarrasComponent } from './Charts/Barras/barras.component';
 import { LineComponent } from './Charts/Line/line.component';
 import { DonaPuntosComponent } from './Charts/DonaPuntos/dona-puntos.component';
+import { SafeHtmlPipe } from './Pipes/safe-html.pipe';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { DonaPuntosComponent } from './Charts/DonaPuntos/dona-puntos.component';
     BarrasComponent,
     LineComponent,
     DonaPuntosComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { DonaPuntosComponent } from './Charts/DonaPuntos/dona-puntos.component';
     DonaComponent,
     BarrasComponent,
     LineComponent,
-    DonaPuntosComponent
+    DonaPuntosComponent,
+    SafeHtmlPipe
   ]
 })
 export class SharedModule { }

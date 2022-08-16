@@ -71,8 +71,7 @@
       <ng-container *ngIf="Retroalimentacion==false">
         <div class="" id="Pregunta">
           <br />
-          <div class="Enunciado">
-            {{Preguntas.pregunta.enunciado}}
+          <div class="Enunciado" [innerHTML]="Preguntas.pregunta.enunciado | safeHtml">
           </div>
           <div *ngIf="Preguntas.pregunta.idSimuladorTipoRespuesta==1" class="Seleccion">
             Seleccione la alternativa correcta:
@@ -154,10 +153,8 @@
           </div>
 
           <div class="subtitulo btn-block" style="margin-top: 15px">Explicación de la respuesta</div>
-          <div style="text-align:justify">
-            {{Preguntas.pregunta.retroalimentacion}}
+          <div style="text-align:justify"  [innerHTML]="Preguntas.pregunta.retroalimentacion | safeHtml">
           </div>
-
           <br />
           <div class="row">
             <div  style="justify-content: left;display:flex">
