@@ -83,12 +83,14 @@ export class ModoExamenComponent implements OnInit {
   public DatosIntento=false;
   public DatosIntentoUsuario=false;
   public BotonResgistrar=false;
+  public ResultadosPorDominio:any;
 
   ngOnInit(): void {
     this.ListaExamenesPorModo();
     this.ListaExamenesIncompletos();
     this.ListaExamenesConcluidos();
     this.ObtenerPromedioIntento();
+    this.ObtenerPromedioDominioPorModo();
   }
   RegistrarExamen(){
     if(this.userForm.valid){
@@ -266,6 +268,13 @@ export class ModoExamenComponent implements OnInit {
           }
         })
         }
+      }
+    })
+  }
+  ObtenerPromedioDominioPorModo(){
+    this._ExamenService.ObtenerPromedioDominioPorModo(1).subscribe({
+      next:(x)=>{
+        this.ResultadosPorDominio=x
       }
     })
   }

@@ -24,9 +24,6 @@ import { HelperService } from './shared/Services/helper.service';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
-
-
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },

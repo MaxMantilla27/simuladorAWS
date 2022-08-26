@@ -60,8 +60,7 @@
           <ng-container >
             <div class="" id="Pregunta">
               <br />
-              <div class="Enunciado" style="text-align: justify">
-                {{Preguntas.pregunta.enunciado}}
+              <div class="Enunciado" style="text-align: justify"[innerHTML]="Preguntas.pregunta.enunciado | safeHtml">
               </div>
               <div *ngIf="Preguntas.pregunta.idSimuladorTipoRespuesta==1" class="Seleccion">
                 Seleccione la alternativa correcta:
@@ -71,7 +70,7 @@
               </div>
               <div id="Alternativas">
                 <ng-container *ngFor="let Respuesta of Preguntas.pregunta.respuesta; let j=index">
-                  <div *ngIf="Respuesta.respuestaSelecionada==1 && Preguntas.puntaje==0" class="RespuestaCorrecta">
+                  <div *ngIf="Respuesta.respuestaSelecionada==1 && Preguntas.puntaje==0" >
                     <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;margin-right: 5%;">
                       <div>
                       <i class="material-icons radioFormRpta" [style]="{'color':Respuesta.respuestaSelecionada==1?'green':'#ededed'}">
@@ -79,9 +78,12 @@
                       <ng-container *ngIf="Respuesta.respuestaSelecionada!=1">check_box_outline_blank</ng-container>
                       </i>
                       </div>
-                      <div >
-                        {{Respuesta.respuesta}}
-                        <img src="../../../../assets/iconos/DesaprobadoMarcado.svg" style="height: 20px;" >
+                      <div style="display: flex">
+                        <div [innerHTML]="Respuesta.respuesta | safeHtml" style="margin-right: 10px">
+                        </div>
+                        <div>
+                          <img src="../../../../assets/iconos/DesaprobadoMarcado.svg" style="height: 20px;" >
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -93,13 +95,16 @@
                       <ng-container *ngIf="Respuesta.respuestaSelecionada!=1">check_box_outline_blank</ng-container>
                       </i>
                       </div>
-                      <div >
-                        {{Respuesta.respuesta}}
-                        <img src="../../../../assets/iconos/CheckMarcado.svg" style="height: 20px;" >
+                      <div style="display: flex">
+                        <div [innerHTML]="Respuesta.respuesta | safeHtml" style="margin-right: 10px">
+                        </div>
+                        <div>
+                          <img src="../../../../assets/iconos/CheckMarcado.svg" style="height: 20px;" >
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="Respuesta.respuestaSelecionada==0">
+                  <div *ngIf="Respuesta.respuestaSelecionada==0 && Respuesta.correcto=='true'" class="RespuestaCorrecta">
                     <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;">
                       <div>
                       <i class="material-icons radioFormRpta" [style]="{'color':Respuesta.respuestaSelecionada==1?'green':'#ededed'}">
@@ -107,8 +112,19 @@
                       <ng-container *ngIf="Respuesta.respuestaSelecionada!=1">check_box_outline_blank</ng-container>
                       </i>
                       </div>
-                      <div >
-                        {{Respuesta.respuesta}}
+                      <div [innerHTML]="Respuesta.respuesta | safeHtml">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="Respuesta.respuestaSelecionada==0 && Respuesta.correcto=='false'">
+                    <div style="display: flex;align-items: flex-start;font-size: 15px;color: black;text-align: justify;margin-bottom: 10px;">
+                      <div>
+                      <i class="material-icons radioFormRpta" [style]="{'color':Respuesta.respuestaSelecionada==1?'green':'#ededed'}">
+                      <ng-container *ngIf="Respuesta.respuestaSelecionada==1">check_box</ng-container>
+                      <ng-container *ngIf="Respuesta.respuestaSelecionada!=1">check_box_outline_blank</ng-container>
+                      </i>
+                      </div>
+                      <div [innerHTML]="Respuesta.respuesta | safeHtml">
                       </div>
                     </div>
                   </div>

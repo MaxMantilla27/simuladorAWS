@@ -70,8 +70,6 @@ export class ExamenPreguntaComponent implements OnInit {
     idAspNetUsers:'',
     usuario:''
   }
-  /* public DetalleRespuestaEnvio:any */
-  public Retroalimentacion= false;
   public RespuestaCorrecta=false;
   public RespuestaMarcada=false;
   public PausarContador=true;
@@ -108,24 +106,34 @@ export class ExamenPreguntaComponent implements OnInit {
     })
   }
   chageRadio(value: number,i: number, j: number) {
-    this.RespuestaMarcada=false;
-      if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==1) {
-        this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
-          x.respuestaSelecionada=0
-        })
-        this.RespuestaMarcada=true;
-        return 1;
-      }
-      if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==5) {
-        this.RespuestaMarcada=true
-        return 1;
-      }
-      this.RespuestaMarcada=false;
+    if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==1) {
+      this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
+        x.respuestaSelecionada=0
+      })
+      return 1;
+    }
+    if (value == 1 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==1) {
       return 0;
-}
+    }
+    if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==5) {
+      return 1;
+    }
+    if (value == 1 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==5) {
+      return 0;
+
+    }
+    else return 0;
+  }
+  VerificarMarcado(i:number){
+  this.RespuestaMarcada=false
+  this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
+    if( x.respuestaSelecionada==1){
+      this.RespuestaMarcada=true
+    }
+  })
+  }
 RegresarMenu(i:number){
   this.EnviarRespuesta(i);
-  this.Retroalimentacion=false;
   this.PausarContador=true;
   this._router.navigate(['/ModoExamen']);
 }
@@ -143,45 +151,33 @@ EnviarRespuesta(i:number){
   this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta,
   this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
     if(x.respuestaSelecionada==1){
-      this.DetalleRespuestaEnvio.idSimuladorAwsPreguntaRespuesta=x.id;
-      this.DetalleRespuestaEnvio.id=this.ListaPreguntas[i].id;
-      this.DetalleRespuestaEnvio.idSimuladorAwsExamen=0;
-      this.DetalleRespuestaEnvio.idSimuladorAwsDominio=0;
-      this.DetalleRespuestaEnvio.idSimuladorAwsTarea=0;
-      this.DetalleRespuestaEnvio.idSimuladorAwsPregunta=this.ListaPreguntas[i].idSimuladorAwsPregunta;
-      this.DetalleRespuestaEnvio.ejecutado=false;
-      this.DetalleRespuestaEnvio.puntaje=0;
-      this.DetalleRespuestaEnvio.idAspNetUsers='';
-      this.DetalleRespuestaEnvio.usuario=''
       if(this.ContadorPreguntaActual<=this.ContadorAux){
         this.RegistroEnvioRespuesta.estadoExamen=2
       }
       else{
         this.RegistroEnvioRespuesta.estadoExamen=3
       }
-      this.RegistroEnvioRespuesta.respuestaDetalle.push(this.DetalleRespuestaEnvio)
+      this.RegistroEnvioRespuesta.respuestaDetalle.push({
+        idSimuladorAwsPreguntaRespuesta:x.id,
+        id:this.ListaPreguntas[i].id,
+        idSimuladorAwsExamen:0,
+        idSimuladorAwsDominio:0,
+        idSimuladorAwsTarea:0,
+        idSimuladorAwsPregunta:this.ListaPreguntas[i].idSimuladorAwsPregunta,
+        ejecutado:false,
+        puntaje:0,
+        idAspNetUsers:'',
+        usuario:''})
     }
-
   })
   this._ExamenService.RegistrarRespuestaSeleccion(this.RegistroEnvioRespuesta).subscribe({
     next:(x)=>{
       this.RespuestaCorrecta=x
     },
-    complete:()=>{
-      this.Retroalimentacion=true
-    },
   })
-  this.RespuestaMarcada=false
-}
- SalirRetroalimentacion(){
-  this.PausarContador=true;
-    this._router.navigate(['/ModoExamen']);
-    this.ContadorPregunta=this.ContadorPregunta+1;
-  }
-  SiguientePregunta(){
-    this.ContadorPregunta=this.ContadorPregunta+1;
+  this.RespuestaMarcada=false;
+  this.ContadorPregunta=this.ContadorPregunta+1;
     this.ContadorPreguntaActual=this.ContadorPreguntaActual+1;
-    this.Retroalimentacion=false;
     if (this.ContadorPreguntaActual>this.CantidadTotalPreguntas){
       this.PausarContador=true;
       this._router.navigate(['/ModoExamen/ExamenReporte/'+this.IdExamen]);
@@ -206,11 +202,8 @@ EnviarRespuesta(i:number){
       }
       else{
         TiempoSegundoReversa=TiempoSegundoReversa-1;
-      console.log(TiempoSegundoReversa)
         this.MinutoReversa = Math.floor(TiempoSegundoReversa / 60);
-        console.log(this.MinutoReversa)
         this.MinutoMostrarReversa = (this.MinutoReversa < 10) ? '0' + this.MinutoReversa : this.MinutoReversa.toString();
-
         setTimeout(()=>{
           this.CronometroReversa(TiempoSegundoReversa);
         },1000)

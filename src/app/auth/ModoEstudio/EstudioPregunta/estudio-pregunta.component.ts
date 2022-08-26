@@ -75,6 +75,7 @@ export class EstudioPreguntaComponent implements OnInit {
   public RespuestaMarcada=false;
   public PausarContador=true;
 
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       let auxParams = params["IdExamen"].split('-')
@@ -105,21 +106,31 @@ export class EstudioPreguntaComponent implements OnInit {
     })
   }
   chageRadio(value: number,i: number, j: number) {
-    this.RespuestaMarcada=false;
       if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==1) {
         this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
           x.respuestaSelecionada=0
         })
-        this.RespuestaMarcada=true;
         return 1;
+      }
+      if (value == 1 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==1) {
+        return 0;
       }
       if (value == 0 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==5) {
-        this.RespuestaMarcada=true
         return 1;
       }
-      this.RespuestaMarcada=false;
-      return 0;
+      if (value == 1 && this.ListaPreguntas[i].pregunta.respuesta[j] && this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta==5) {
+        return 0;
 
+      }
+      else return 0;
+  }
+  VerificarMarcado(i:number){
+    this.RespuestaMarcada=false
+    this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
+      if( x.respuestaSelecionada==1){
+        this.RespuestaMarcada=true
+      }
+    })
   }
   RegresarMenu(i:number){
     this.Retroalimentacion=false;
@@ -141,26 +152,26 @@ export class EstudioPreguntaComponent implements OnInit {
     this.RegistroEnvioRespuesta.idSimuladorTipoRespuesta=this.ListaPreguntas[i].pregunta.idSimuladorTipoRespuesta,
     this.ListaPreguntas[i].pregunta.respuesta.forEach((x:any)=>{
       if(x.respuestaSelecionada==1){
-        this.DetalleRespuestaEnvio.idSimuladorAwsPreguntaRespuesta=x.id;
-        this.DetalleRespuestaEnvio.id=this.ListaPreguntas[i].id;
-        this.DetalleRespuestaEnvio.idSimuladorAwsExamen=0;
-        this.DetalleRespuestaEnvio.idSimuladorAwsDominio=0;
-        this.DetalleRespuestaEnvio.idSimuladorAwsTarea=0;
-        this.DetalleRespuestaEnvio.idSimuladorAwsPregunta=this.ListaPreguntas[i].idSimuladorAwsPregunta;
-        this.DetalleRespuestaEnvio.ejecutado=false;
-        this.DetalleRespuestaEnvio.puntaje=0;
-        this.DetalleRespuestaEnvio.idAspNetUsers='';
-        this.DetalleRespuestaEnvio.usuario=''
         if(this.ContadorPreguntaActual<=this.ContadorAux){
           this.RegistroEnvioRespuesta.estadoExamen=2
         }
         else{
           this.RegistroEnvioRespuesta.estadoExamen=3
         }
-        this.RegistroEnvioRespuesta.respuestaDetalle.push(this.DetalleRespuestaEnvio)
+        this.RegistroEnvioRespuesta.respuestaDetalle.push({
+          idSimuladorAwsPreguntaRespuesta:x.id,
+          id:this.ListaPreguntas[i].id,
+          idSimuladorAwsExamen:0,
+          idSimuladorAwsDominio:0,
+          idSimuladorAwsTarea:0,
+          idSimuladorAwsPregunta:this.ListaPreguntas[i].idSimuladorAwsPregunta,
+          ejecutado:false,
+          puntaje:0,
+          idAspNetUsers:'',
+          usuario:''})
       }
-
     })
+    console.log(this.RegistroEnvioRespuesta)
     this._ExamenService.RegistrarRespuestaSeleccion(this.RegistroEnvioRespuesta).subscribe({
       next:(x)=>{
         this.RespuestaCorrecta=x

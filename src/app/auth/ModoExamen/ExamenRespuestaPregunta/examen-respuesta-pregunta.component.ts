@@ -51,7 +51,7 @@ export class ExamenRespuestaPreguntaComponent implements OnInit {
     })
   }
   RegresarMenu(){
-    this._router.navigate(['/ModoEstudio']);
+    this._router.navigate(['/ModoExamen']);
   }
   SiguientePregunta(){
     this.ContadorPreguntaActual=this.ContadorPreguntaActual+1;

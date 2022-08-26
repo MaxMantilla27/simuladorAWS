@@ -54,6 +54,7 @@ export class ModoEntrenamientoComponent implements OnInit {
   public ContEntrenamiento=0;
   public Promedio=0;
   public BotonResgistrar=false;
+  public ResultadosPorDominio:any
 
   ngOnInit(): void {
     this.ListaExamenesIncompletos();
@@ -140,6 +141,7 @@ export class ModoEntrenamientoComponent implements OnInit {
   ObtenerPromedioDominioPorModo(){
     this._ExamenService.ObtenerPromedioDominioPorModo(2).subscribe({
       next:(x)=>{
+        this.ResultadosPorDominio=x
       }
     })
   }

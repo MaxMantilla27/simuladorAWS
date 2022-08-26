@@ -15,33 +15,33 @@
 </div>
 <div class="container" style="width: 63%;">
   <div style="padding:0.75rem 1.25rem;display: flex;">
-    <div style="color:#fff;display: flex;justify-content: center;">
-      <div class="card CardsEstudio" style="border-radius:20px;">
-        <div class="card-header" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
+    <div class="row" style="color:#fff;display: flex;justify-content: center;">
+      <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
+        <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
             <div class="text-center" style="padding: 0px 12px;"><b class="card-title">Número de simulaciones totales</b></div>
         </div>
-        <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
+        <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
           <div class="text-center"><b style="font-size:60px;">{{SimulacionesTotales}}</b></div>
         </div>
     </div>
-    <div class="card CardsEstudio" style="border-radius:20px;">
-        <div class="card-header" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
+    <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
+        <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
             <div class="text-center">
                 <b class="card-title">Número de simulaciones inconclusas</b>
             </div>
         </div>
-        <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
+        <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
           <div class="text-center"><b style="font-size:60px;">{{SimulacionesInconclusas}}</b></div>
 
         </div>
     </div>
-    <div class="card CardsEstudio" style="border-radius:20px;">
-        <div class="card-header" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
+    <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
+        <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
             <div class="text-center" style="padding: 12px 0px;">
                 <b class="card-title">Tiempo de estudio total</b>
             </div>
         </div>
-        <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
+        <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
             <div class="text-center"><b style="font-size:60px;">{{HoraMostrar}}:{{MinutoMostrar}}</b></div>
             <div class="text-center"><span class="card-text">hh/mm</span></div>
         </div>
@@ -51,8 +51,8 @@
   <div *ngIf="ResultadosPorDominio!=undefined" class="titulo" style="font-weight: 400 !important;">
     Mejor puntaje por dominio
     <div class="row">
-      <div class="col-3">
-        <div style="margin-left: -25px">
+      <div class="col-12 col-md-3">
+        <div style="display: flex;justify-content: center;margin-left: -25px;">
           <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio1"></app-dona-puntos>
         </div>
         <div class="subtitulo">
@@ -62,8 +62,8 @@
           Diseñar arquitecturas resistentes.
         </div>
       </div>
-      <div class="col-3">
-        <div style="margin-left: -25px">
+      <div class="col-12 col-md-3">
+        <div style="display: flex;justify-content: center;margin-left: -25px;">
           <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio2"></app-dona-puntos>
         </div>
         <div class="subtitulo">
@@ -73,8 +73,8 @@
           Diseñar arquitecturas de alto rendimiento.
         </div>
       </div>
-      <div class="col-3">
-        <div style="margin-left: -25px">
+      <div class="col-12 col-md-3">
+        <div style="display: flex;justify-content: center;margin-left: -25px;">
           <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio3"></app-dona-puntos>
         </div>
         <div class="subtitulo">
@@ -84,8 +84,8 @@
           Diseñar aplicaciones y arquitecturas seguras.
         </div>
       </div>
-      <div class="col-3">
-        <div style="margin-left: -25px">
+      <div class="col-12 col-md-3">
+        <div style="display: flex;justify-content: center;margin-left: -25px;">
           <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio4"></app-dona-puntos>
         </div>
         <div class="subtitulo">
@@ -95,10 +95,8 @@
           Diseñar arquitecturas optimizadas para costos.
         </div>
       </div>
-
     </div>
   </div>
-
 
   <!-- Crear simulación de estudio -->
   <div class="card" style="padding:30px;border-radius:20px;">
@@ -122,8 +120,8 @@
                 Seleccione el dominio que desea estudiar:
               </div>
               <div class="row">
-                <div *ngIf="DominioSeleccionado!=1" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=1">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE" >
+                <div *ngIf="DominioSeleccionado!=1" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=1">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE ;width:103%" >
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento1.svg">
                     </div>
@@ -132,8 +130,8 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="DominioSeleccionado==1" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=0">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)" >
+                <div *ngIf="DominioSeleccionado==1" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=0">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92) ;width:103%" >
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento1.svg">
                     </div>
@@ -143,20 +141,20 @@
                   </div>
                 </div>
 
-                <div *ngIf="DominioSeleccionado!=2" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=2">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE">
+                <div *ngIf="DominioSeleccionado!=3" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=3">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE ;width:103%">
                     <div class="col-3">
-                      <img  style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento2.svg">
+                      <img  style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento3.svg">
                     </div>
                     <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
                       Diseñar aplicaciones y arquitecturas seguras (apps y arquitecturas de software)
                     </div>
                   </div>
                 </div>
-                <div *ngIf="DominioSeleccionado==2" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=0">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)">
+                <div *ngIf="DominioSeleccionado==3" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=0">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92) ;width:103%">
                     <div class="col-3">
-                      <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento2.svg">
+                      <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento3.svg">
                     </div>
                     <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
                       Diseñar aplicaciones y arquitecturas seguras (apps y arquitecturas de software)
@@ -166,20 +164,20 @@
               </div>
 
               <div class="row">
-                <div *ngIf="DominioSeleccionado!=3" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=3">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE">
+                <div *ngIf="DominioSeleccionado!=2" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=2">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE ;width:103%">
                     <div class="col-3">
-                      <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento3.svg">
+                      <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento2.svg">
                     </div>
                     <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
                       Diseñar arquitecturas de alto rendimiento (arquitecturas de software)
                     </div>
                   </div>
                 </div>
-                <div *ngIf="DominioSeleccionado==3" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=0">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)">
+                <div *ngIf="DominioSeleccionado==2" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=0">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92) ;width:103%">
                     <div class="col-3">
-                      <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento3.svg">
+                      <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento2.svg">
                     </div>
                     <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
                       Diseñar arquitecturas de alto rendimiento (arquitecturas de software)
@@ -187,8 +185,8 @@
                   </div>
                 </div>
 
-                <div *ngIf="DominioSeleccionado!=4" class="col-6 col-md-6 card CardsDominio" (click)="DominioSeleccionado=4">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE">
+                <div *ngIf="DominioSeleccionado!=4" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=4">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: #0C9AFE ;width:103%">
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento4.svg">
                     </div>
@@ -197,8 +195,8 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="DominioSeleccionado==4" class="col-6 col-md-6 card CardsDominioSelect" (click)="DominioSeleccionado=0">
-                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92)">
+                <div *ngIf="DominioSeleccionado==4" class="col-12 col-md-6 CardsDominioSelect" (click)="DominioSeleccionado=0">
+                  <div class="card-body row" style="border-radius: 20px 20px 20px 20px; background: rgb(255, 138, 92) ;width:103%">
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento4.svg">
                     </div>
@@ -211,11 +209,12 @@
               </div>
             </div>
           </div>
+          <mat-error *ngIf="!userForm.invalid && DominioSeleccionado==0">Debe seleccionar un dominio para la simulación</mat-error>
           <div class="row">
             <div class="col-md-12" style="margin-top: 10px ">
               <div class="subtitulo">Nombre de la simulación:</div>
               <mat-form-field appearance="outline" [floatLabel]="'always'" style="width: 100%;">
-                <input type="text" placeholder="Escriba el nombre de la simulacion" formControlName="NombreSimulacion" matInput />
+                <input type="text" placeholder="Escriba el nombre de la simulación" formControlName="NombreSimulacion" matInput />
                 <mat-error *ngIf="userForm.invalid">Debe ingresar un nombre para la simulación</mat-error>
               </mat-form-field>
               </div>
@@ -321,7 +320,6 @@
                     </div>
                   </div>
                 </div>
-
               </div>
             </ng-container>
           </div>
@@ -337,7 +335,7 @@
     <div class="card-body" style="border-radius: 0px 0px 20px 20px;padding-top:0px;padding-bottom:0px; ">
     </div>
   </div>
-
+  <br>
 </div>
 
 
