@@ -14,11 +14,12 @@
   </div>
 </div>
 <div class="container" style="width: 63%;">
-  <div style="padding:0.75rem 1.25rem;display: flex;">
-    <div class="row" style="color:#fff;display: flex;justify-content: center;">
+  <div style="padding:0.75rem 1.25rem;display: flex;justify-content: center;">
+    <div  class="row" style="color:#fff;justify-content: center;">
       <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
         <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
-            <div class="text-center" style="padding: 0px 12px;"><b class="card-title">Número de simulaciones totales</b></div>
+          <div style="text-align:center;">
+              <b class="card-title">Número de simulaciones</b><br><b>totales</b></div>
         </div>
         <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
           <div class="text-center"><b style="font-size:60px;">{{SimulacionesTotales}}</b></div>
@@ -26,8 +27,8 @@
     </div>
     <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
         <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
-            <div class="text-center">
-                <b class="card-title">Número de simulaciones inconclusas</b>
+            <div style="text-align:center;">
+                <b class="card-title">Número de simulaciones</b><br><b> inconclusas</b>
             </div>
         </div>
         <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
@@ -37,8 +38,8 @@
     </div>
     <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
         <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
-            <div class="text-center" style="padding: 12px 0px;">
-                <b class="card-title">Tiempo de estudio total</b>
+            <div style="text-align:center; ">
+                <b class="card-title">Tiempo de estudio</b><br><b> total</b>
             </div>
         </div>
         <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
@@ -63,6 +64,54 @@
         </div>
         <div class="col-6" style="text-align: right;font-size: 17px;font-weight: bold;">
           Puntaje promedio / 100
+        </div>
+      </div>
+    </div>
+    <div *ngIf="ResultadosPorDominio!=undefined" class="titulo" style="font-weight: 400 !important;margin-bottom: 10px;">
+      <div class="row">
+        <div class="col-12 col-md-3">
+          <div style="display: flex;justify-content: center;margin-left: -25px;">
+            <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio1"></app-dona-puntos>
+          </div>
+          <div class="subtitulo">
+            Dominio 1:
+          </div>
+          <div style="font-size: 14px">
+            Diseñar arquitecturas resistentes.
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div style="display: flex;justify-content: center;margin-left: -25px;">
+            <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio2"></app-dona-puntos>
+          </div>
+          <div class="subtitulo">
+            Dominio 2:
+          </div>
+          <div style="font-size: 14px">
+            Diseñar arquitecturas de alto rendimiento.
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div style="display: flex;justify-content: center;margin-left: -25px;">
+            <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio3"></app-dona-puntos>
+          </div>
+          <div class="subtitulo">
+            Dominio 3:
+          </div>
+          <div style="font-size: 14px">
+            Diseñar aplicaciones y arquitecturas seguras.
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div style="display: flex;justify-content: center;margin-left: -25px;">
+            <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio4"></app-dona-puntos>
+          </div>
+          <div class="subtitulo">
+            Dominio 4:
+          </div>
+          <div style="font-size: 14px">
+            Diseñar arquitecturas optimizadas para costos.
+          </div>
         </div>
       </div>
     </div>
@@ -91,55 +140,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="ResultadosPorDominio!=undefined" class="titulo" style="font-weight: 400 !important;">
-    Mejor puntaje por dominio
-    <div class="row">
-      <div class="col-12 col-md-3">
-        <div style="display: flex;justify-content: center;margin-left: -25px;">
-          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio1"></app-dona-puntos>
-        </div>
-        <div class="subtitulo">
-          Dominio 1:
-        </div>
-        <div style="font-size: 14px">
-          Diseñar arquitecturas resistentes.
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div style="display: flex;justify-content: center;margin-left: -25px;">
-          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio2"></app-dona-puntos>
-        </div>
-        <div class="subtitulo">
-          Dominio 2:
-        </div>
-        <div style="font-size: 14px">
-          Diseñar arquitecturas de alto rendimiento.
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div style="display: flex;justify-content: center;margin-left: -25px;">
-          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio3"></app-dona-puntos>
-        </div>
-        <div class="subtitulo">
-          Dominio 3:
-        </div>
-        <div style="font-size: 14px">
-          Diseñar aplicaciones y arquitecturas seguras.
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div style="display: flex;justify-content: center;margin-left: -25px;">
-          <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio4"></app-dona-puntos>
-        </div>
-        <div class="subtitulo">
-          Dominio 4:
-        </div>
-        <div style="font-size: 14px">
-          Diseñar arquitecturas optimizadas para costos.
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Crear simulación de examen -->
   <div class="card" style="padding:30px;border-radius:20px;">

@@ -14,11 +14,12 @@
   </div>
 </div>
 <div class="container" style="width: 63%;">
-  <div style="padding:0.75rem 1.25rem;display: flex;">
-    <div class="row" style="color:#fff;display: flex;justify-content: center;">
+  <div style="padding:0.75rem 1.25rem;display: flex;justify-content: center;">
+    <div  class="row" style="color:#fff;justify-content: center;">
       <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
         <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
-            <div class="text-center" style="padding: 0px 12px;"><b class="card-title">Número de simulaciones totales</b></div>
+          <div style="text-align:center;">
+              <b class="card-title">Número de simulaciones</b><br><b>totales</b></div>
         </div>
         <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
           <div class="text-center"><b style="font-size:60px;">{{SimulacionesTotales}}</b></div>
@@ -26,8 +27,8 @@
     </div>
     <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
         <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
-            <div class="text-center">
-                <b class="card-title">Número de simulaciones inconclusas</b>
+            <div style="text-align:center;">
+                <b class="card-title">Número de simulaciones</b><br><b> inconclusas</b>
             </div>
         </div>
         <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
@@ -37,8 +38,8 @@
     </div>
     <div class="card CardsEstudio col-12 col-md-4" style="border-radius:20px;">
         <div class="card-header row" style="border-radius: 20px 20px 0px 0px; border-bottom: 1px solid #fff; background: #0C9AFE">
-            <div class="text-center" style="padding: 12px 0px;">
-                <b class="card-title">Tiempo de estudio total</b>
+            <div style="text-align:center; ">
+                <b class="card-title">Tiempo de estudio</b><br><b> total</b>
             </div>
         </div>
         <div class="card-body row" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
@@ -48,9 +49,11 @@
       </div>
     </div>
   </div>
-  <div *ngIf="ResultadosPorDominio!=undefined" class="titulo" style="font-weight: 400 !important;">
-    Mejor puntaje por dominio
-    <div class="row">
+  <div *ngIf="ResultadosPorDominio!=undefined" class="titulo" style="font-weight: 400 !important;margin-top: 15px;margin-bottom: 15px;">
+    <div style="margin-bottom: 15px">
+      Mejor puntaje por dominio
+    </div>
+    <div class="row"  style="margin-bottom: 15px">
       <div class="col-12 col-md-3">
         <div style="display: flex;justify-content: center;margin-left: -25px;">
           <app-dona-puntos [Puntos]="ResultadosPorDominio.dominio1"></app-dona-puntos>
@@ -116,7 +119,7 @@
         <div class="form-horizontal" id="form-crearExamen">
           <div class="row">
             <div class="col-md-12">
-              <div class="subtitulo" style="margin-top: 40px;margin-bottom: 15px;">
+              <div class="subtitulo" style="margin-top: 15px;margin-bottom: 15px;">
                 Seleccione el dominio que desea estudiar:
               </div>
               <div class="row">
@@ -125,7 +128,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento1.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;" >
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;" >
                       Diseñar arquitecturas resistentes (arquitecturas de software)
                     </div>
                   </div>
@@ -135,7 +138,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento1.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;" >
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;" >
                       Diseñar arquitecturas resistentes  (arquitecturas de software)
                     </div>
                   </div>
@@ -146,7 +149,7 @@
                     <div class="col-3">
                       <img  style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento3.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;">
                       Diseñar aplicaciones y arquitecturas seguras (apps y arquitecturas de software)
                     </div>
                   </div>
@@ -156,7 +159,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento3.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;">
                       Diseñar aplicaciones y arquitecturas seguras (apps y arquitecturas de software)
                     </div>
                   </div>
@@ -169,7 +172,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento2.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;">
                       Diseñar arquitecturas de alto rendimiento (arquitecturas de software)
                     </div>
                   </div>
@@ -179,7 +182,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento2.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;">
                       Diseñar arquitecturas de alto rendimiento (arquitecturas de software)
                     </div>
                   </div>
@@ -190,7 +193,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento4.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;">
                       Diseñar arquitecturas optimizadas para costos (arquitecturas de software)
                     </div>
                   </div>
@@ -200,7 +203,7 @@
                     <div class="col-3">
                       <img style="height: 50px;" src="../../../assets/iconos/AWSCSA-Tento4.svg">
                     </div>
-                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;">
+                    <div class="col-9" style="font-size:15px;color: white;cursor: pointer;display: flex;align-items: center;">
                       Diseñar arquitecturas optimizadas para costos (arquitecturas de software)
                     </div>
                   </div>

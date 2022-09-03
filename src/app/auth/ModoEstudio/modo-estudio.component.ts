@@ -128,6 +128,7 @@ export class ModoEstudioComponent implements OnInit {
     this._ExamenService.ListaExamenesConcluidos().subscribe({
       next:(x)=>{
         this.SimulacionesCompletadas=x;
+        console.log(this.SimulacionesCompletadas)
         this.SimulacionesCompletadas.forEach((y:any)=>{
           if(y.idEstadoExamen==3 && y.idSimuladorAwsModo==1){
             this.ContSimulacionesCompletadas=x.length;
