@@ -45,7 +45,7 @@
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
             <div class="text-center"><b style="font-size:60px;">{{HoraMostrar}}:{{MinutoMostrar}}</b></div>
-            <div class="text-center"><span class="card-text">hh/mm</span></div>
+            <div class="text-center"><span class="card-text">XX horas / XX minutos</span></div>
         </div>
       </div>
     </div>
@@ -127,14 +127,14 @@
         Instrucciones:
       </div>
       <div>
-        En este modo tú podrás estudiar de forma individual cada uno de los dominios que componen el examen, en todas las preguntas se te brindará retroalimentación para verificar tus respuestas y fortalecer tus conocimientos.
+        En este modo podrás estudiar de forma individual cada uno de los dominios que componen el examen, en todas las preguntas se te brindará retroalimentación para verificar tus respuestas y fortalecer tus conocimientos.
       </div>
       <form (submit)="RegistrarExamen()" [formGroup]="userForm">
         <div class="form-horizontal" id="form-crearExamen">
           <div class="row">
             <div class="col-md-12" style="padding-bottom: 20px;">
               <div class="subtitulo" style="margin-top: 20px;margin-bottom: 3px;">
-                Seleccione el dominio que desea estudiar:
+                Selecciona el dominio que deseas estudiar:
               </div>
               <div class="row">
                 <div *ngIf="DominioSeleccionado!=1" class="col-12 col-md-6 CardsDominio" (click)="DominioSeleccionado=1">
@@ -324,7 +324,7 @@
                       <b>Nombre: </b>  {{item.nombreExamen}}
                     </div>
                     <div>
-                      <b>Fecha ultimo cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                      <b>Fecha último cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
                     </div>
                     <div>
                       <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}

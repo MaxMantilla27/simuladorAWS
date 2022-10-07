@@ -23,7 +23,7 @@
             </div>
             <div class="row itemscard">
                 <div class="col-md-8 subtitleCard" style="font-size: 18px;">
-                    <img src="../../../assets/iconos/check_2.svg" height="15" style="margin-right:10px" /> Examenes completados
+                    <img src="../../../assets/iconos/check_2.svg" height="15" style="margin-right:10px" /> Exámenes completados
                 </div>
                 <div class="col-md-4" style="font-size: 16px; font-weight: 500;">
                   {{ExamenesCompletados}} Examen(es)
@@ -31,7 +31,7 @@
             </div>
             <div class="row itemscard">
                 <div class="col-md-8 subtitleCard" style="font-size: 18px;">
-                    <img src="../../../assets/iconos/check_2.svg" height="15" style="margin-right: 10px" /> Examenes activos
+                    <img src="../../../assets/iconos/check_2.svg" height="15" style="margin-right: 10px" /> Exámenes activos
                 </div>
                 <div class="col-md-4" style="font-size: 16px; font-weight: 500;">
                   {{ExamenesActivos}} Examen(es)
@@ -145,16 +145,20 @@
               <h2 class="titulo">Modo Examen</h2>
           </div>
           <p style="padding-top: 12px; padding-bottom: 10px;">
-            En este modo es donde se simulará todas las condiciones del examen de certificación AWS Certified Solutions Architect – Associate Level, como el tiempo del examen y la cantidad de preguntas. Este modo también suma puntaje reflejado en el nivel de cada usuario.
+            En este modo se simulan todas las condiciones del examen de certificación AWS Certified Solutions Architect – Associate Level, como el tiempo del examen y la cantidad de preguntas. Este modo también suma puntaje reflejado en el nivel de cada usuario.
           </p>
       </div>
       <div class="card-body" style="border-radius: 0px 0px 20px 20px; padding-top: 20px; padding-bottom:0px; ">
           <div class="row">
               <div class="col-md-6" style="display: block; padding-bottom: 15px;">
-                  <span class="subtitulo" style="display:block; padding-bottom: 15px;">Resultados de tu ultimo examen:</span>
+                  <span class="subtitulo" style="display:block; padding-bottom: 15px;">Resultados de tu último examen:</span>
                 <div>
                   <div *ngIf="Examen!=undefined" class="chart">
                     <app-dona-puntos [Puntos]="Puntos"></app-dona-puntos>
+                    <div class="item-nota">
+                      Nota* : Estos resultados muestran solo el puntaje obtenido de tu ultimo exámen.<br>
+                      El grafico de barras muestra el promedio general por cada dominio de todas las simulaciones realizadas en el modo examen.
+                    </div>
                   </div>
                   <div *ngIf="Examen==undefined"  style=" font-size: 15px;margin-top: 10px;" >
                     No tiene simulaciones realizadas en modo examen.
@@ -215,7 +219,7 @@
           </p>
       </div>
       <div class="card-body" style="border-radius: 0px 0px 20px 20px; padding-top: 20px; padding-bottom:0px; ">
-        <div class="subtitulo" style="padding-bottom: 25px;">Simulaciones con mayor puntaje:
+        <div class="subtitulo" style="padding-bottom: 25px;">Últimas simulaciones realizadas:
 
         </div>
         <div>

@@ -44,7 +44,7 @@
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
             <div class="text-center"><b style="font-size:60px;">{{HoraMostrar}}:{{MinutoMostrar}}</b></div>
-            <div class="text-center"><span class="card-text">hh/mm</span></div>
+            <div class="text-center"><span class="card-text">XX horas / XX minutos</span></div>
         </div>
       </div>
     </div>
@@ -141,7 +141,7 @@
         <div class="col-md-6">
           <div class="card" style="padding:10px;">
             <div class="row">
-                <span class="subtitulo col-md-7" style="font-size: 16px; padding-top: 10px">% de intentos aprobados:</span>
+                <span class="subtitulo col-md-7" style="font-size: 16px; padding-top: 10px">Porcentaje de intentos aprobados:</span>
                 <div class="col-md-5">
                   {{PorcentajeIntentosAprobados}} %
                 </div>
@@ -281,7 +281,7 @@
                       <b>Nombre: </b>  {{item.nombreExamen}}
                     </div>
                     <div>
-                      <b>Fecha ultimo cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                      <b>Fecha último cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
                     </div>
                     <div>
                       <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}

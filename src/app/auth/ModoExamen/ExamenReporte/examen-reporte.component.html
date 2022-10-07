@@ -57,7 +57,7 @@
                       </div>
                   </div>
                   <div style="margin-left: 20px; font-size: 13px;color:#706E81; padding-bottom: 20px;">
-                    * Nota: Preguntas pertenecientes a una versión anterior, puede que no contengan video de retroalimetación
+                    * Nota: Preguntas pertenecientes a una versión anterior, puede que no contengan video de retroalimentación
                   </div>
                   <div style="margin-bottom: 20px;">
                     <app-dona-puntos [Puntos]="Examen.desempenio"></app-dona-puntos>
@@ -91,7 +91,7 @@
                               [value]="Examen.desempenio">
                             </mat-progress-bar>
                           </div>
-                        <div class="col-2 numeroReporte">{{Examen.desempenio}}%</div>
+                        <div class="col-2 numeroReporte">{{Examen.desempenio|number:'1.0-0'}}%</div>
                       </div>
                     </div>
 
@@ -103,7 +103,7 @@
                               [value]="Examen.promedio">
                             </mat-progress-bar>
                           </div>
-                        <div class="col-2 numeroReporte">{{Examen.promedio}}%</div>
+                        <div class="col-2 numeroReporte">{{Examen.promedio|number:'1.0-0'}}%</div>
                       </div>
                     </div>
 
@@ -115,7 +115,7 @@
                               [value]="Examen.mayor">
                             </mat-progress-bar>
                           </div>
-                        <div class="col-2 numeroReporte">{{Examen.mayor}}%</div>
+                        <div class="col-2 numeroReporte">{{Examen.mayor|number:'1.0-0'}}%</div>
                       </div>
                     </div>
 
@@ -127,7 +127,7 @@
                               [value]="Examen.menor">
                             </mat-progress-bar>
                           </div>
-                        <div class="col-2 numeroReporte">{{Examen.menor}}%</div>
+                        <div class="col-2 numeroReporte">{{Examen.menor|number:'1.0-0'}}%</div>
                       </div>
                     </div>
 
@@ -139,12 +139,12 @@
                               [value]="Examen.percentil">
                             </mat-progress-bar>
                           </div>
-                        <div class="col-2 numeroReporte">{{Examen.percentil}}%</div>
+                        <div class="col-2 numeroReporte">{{Examen.percentil|number:'1.0-0'}}%</div>
                       </div>
                     </div>
                     <div class="percentilContentReporte">
                       <img src="../../../../assets/iconos/feliz_2.svg" style="height: 30px; margin-right: 20px;" />
-                      <div>¡Felicidades esta sobre el {{Percentil}} % de los participantes!</div>
+                      <div>¡Felicidades! Estás sobre el {{Percentil}} % de los participantes!</div>
                     </div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@
                 <div class="card-body" style="border-radius: 0px 0px 10px 10px; background: #0C9AFE">
 
                     <div class="text-center"><b id="PromedioPregunta" style="font-size: 70px;">{{MinutoPromedioMostrar}}:{{SegundoPromedioMostrar}}</b></div>
-                    <div class="text-center"><span class="card-text">mm:ss</span></div>
+                    <div class="text-center"><span class="card-text">XX minutos : XX segundos</span></div>
 
                 </div>
             </div>
@@ -240,7 +240,7 @@
                 </div>
                 <div class="col-md-8">
 
-                  <span class="text-resultado">¡Ánimo! sigue asi que lo estas haciendo bien</span>
+                  <span class="text-resultado">¡Ánimo! Sigue asi que lo estas haciendo bien</span>
                 </div>
 
               </div>
@@ -253,7 +253,7 @@
                 </div>
 
                 <div class="col-md-8">
-                  <span class="text-resultado">¡Ánimo! la siguiente vez lo haras mucho mejor</span>
+                  <span class="text-resultado">¡Ánimo! La siguiente vez lo harás mucho mejor</span>
                 </div>
               </div>
               <div class="subtitulo" style="margin-top:40px">
@@ -273,7 +273,7 @@
                         </mat-progress-bar>
                       </div>
                     <div class="col-2 numeroReporte">
-                      {{item.desempenio}}%
+                      {{item.desempenio|number:'1.0-0'}}%
                     </div>
                     </div>
                   </div>

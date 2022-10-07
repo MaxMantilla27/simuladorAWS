@@ -45,7 +45,7 @@
         </div>
         <div class="card-body" style="border-radius: 0px 0px 20px 20px; background: #0C9AFE">
             <div class="text-center"><b style="font-size:60px;">{{HoraMostrar}}:{{MinutoMostrar}}</b></div>
-            <div class="text-center"><span class="card-text">hh/mm</span></div>
+            <div class="text-center"><span class="card-text">XX horas / XX minutos</span></div>
         </div>
       </div>
     </div>
@@ -180,7 +180,7 @@
             <ng-container *ngFor="let item of SimulacionesCompletadas">
               <div  *ngIf="item.idSimuladorAwsModo==2" style="border-bottom: 1px solid #E4E4E4;padding-bottom: 15px;">
                 <div class="row texto-contenido" style="margin-top: 20px;margin-left: 0px;">
-                  <div class="col-md-4">+
+                  <div class="col-md-4">
                     <div style="padding-top: 10px; padding-bottom: 10px;">
                       <div>
                         <b>Nombre: </b>  {{item.nombreExamen}}
@@ -240,7 +240,7 @@
                       <b>Nombre: </b>  {{item.nombreExamen}}
                     </div>
                     <div>
-                      <b>Fecha ultimo cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
+                      <b>Fecha último cambio: </b>  {{item.fechaModificacion|date: 'dd/MM/yyyy'}} - {{item.fechaModificacion| date: 'HH:mm'}}
                     </div>
                     <div>
                       <b>Preguntas Respondidas: </b>  {{item.preguntasRespondidas}} de {{item.preguntasRespondidas+item.preguntasPendientes}}
