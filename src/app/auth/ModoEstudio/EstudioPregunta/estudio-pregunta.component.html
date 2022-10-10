@@ -144,8 +144,7 @@
               </div>
               <div id="RespuestaCorrecta" style="border: 1px solid rgb(199 255 186); padding: 10px; border-radius: 5px; padding-left: 50px; color: #878787; background: #FFFDEE; ">
                 <ng-container *ngFor="let Respuesta of Preguntas.pregunta.respuesta">
-                  <div *ngIf="Respuesta.valor==1">
-                    {{Respuesta.respuesta}}
+                  <div *ngIf="Respuesta.valor==1"[innerHTML]="Respuesta.respuesta | safeHtml">
                   </div>
                 </ng-container>
               </div>
