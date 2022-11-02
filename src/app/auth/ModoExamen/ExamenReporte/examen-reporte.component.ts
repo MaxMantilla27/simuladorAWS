@@ -47,12 +47,13 @@ export class ExamenReporteComponent implements OnInit {
   ObtenerExamenReporteResultadosPorId(){
     this._ExamenService.ObtenerExamenReporteResultadosPorId(this.IdExamen).subscribe({
       next:(x)=>{
+        console.log(x)
         this.ExamenResultado=x.dominioResultado;
         this.Examen=x.examen;
         this.NombreExamen=x.examen.nombreExamen;
         this.TiempoTotalEstudio=x.examen.tiempo;
         this.TiempoPromedio=Math.floor(x.examen.tiempo/x.examen.preguntasRespondidas)
-        this.Percentil=Math.floor(x.examen.mayor-x.examen.percentil)
+        this.Percentil=Math.floor(x.examen.percentil)
         this.Desempenio=Math.floor(this.Examen.desempenio)
 
 
