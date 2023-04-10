@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ConfiguracionSimuladorService } from 'src/app/shared/Services/ConfiguracionSimulador/configuracion-simulador.service';
 import { ExamenService } from 'src/app/shared/Services/Examen/examen.service';
 
 @Component({
@@ -11,7 +12,9 @@ export class ExamenReporteComponent implements OnInit {
 
   constructor(
     private _ExamenService: ExamenService,
+    private _ConfiguracionSimulador: ConfiguracionSimuladorService,
     private activatedRoute: ActivatedRoute,
+    
   ) { }
   public migaPan = [
     {
@@ -37,6 +40,7 @@ export class ExamenReporteComponent implements OnInit {
   public TiempoPromedio=0;
   public Percentil=0;
   public Desempenio=0;
+  public PorcentajeMinimoAprobacion=0;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       let auxParams = params["IdExamen"].split('-')
@@ -68,6 +72,14 @@ export class ExamenReporteComponent implements OnInit {
 
 
 
+      }
+    })
+  }
+  ObtenerPorcentaje(){
+    this._ConfiguracionSimulador.ObtenerPorcentaje().subscribe({
+      next:(x)=>{
+        this.PorcentajeMinimoAprobacion = x.porcentajeMinimoAprobacion;
+        console.log(this.PorcentajeMinimoAprobacion)
       }
     })
   }
