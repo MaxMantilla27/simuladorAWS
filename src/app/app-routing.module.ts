@@ -9,11 +9,10 @@ const routes: Routes = [
   {path:'',loadChildren:()=>import('./auth/auth.module').then(m=>m.AuthModule)},
   {path:'**',component:ErrorPageComponent}
 ];
+
 @NgModule({
-  declarations: [],
-  imports: [
-    RouterModule.forRoot(routes, { scrollPositionRestoration: 'top', initialNavigation: 'enabledBlocking' } /*,{useHash:true}*/)
-  ],
-  exports:[RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
